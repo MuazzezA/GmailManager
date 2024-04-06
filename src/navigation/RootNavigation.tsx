@@ -11,7 +11,7 @@ const Stack = createStackNavigator();
 export default function RootNavigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Splash">
+      <Stack.Navigator initialRouteName={ScreenName.SPLASH}>
         <Stack.Screen
           name={ScreenName.SPLASH}
           component={Splash}
