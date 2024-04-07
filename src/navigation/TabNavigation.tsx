@@ -7,7 +7,10 @@ import Folders from '../screens/Folders.tsx';
 const Tab = createBottomTabNavigator();
 export default function TabNavigation() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
       <Tab.Screen name={ScreenName.HOME} component={Home} />
       <Tab.Screen name={ScreenName.FOLDERS} component={Folders} />
     </Tab.Navigator>
