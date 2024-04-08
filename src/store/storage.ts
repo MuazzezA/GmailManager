@@ -20,6 +20,7 @@ export const getUserSession = async () => {
     return session ? session : '';
   } catch (error) {
     console.error('ERROR getUserSession : ', error);
+    return '';
   }
 };
 

@@ -6,16 +6,17 @@ import {ScreenName} from '../navigation/ScreenName.ts';
 import {useAuthValidation} from '../hooks/useAuthValidation.ts';
 const Splash = () => {
   const navigation = useNavigation();
-  const {validate} = useAuthValidation();
-  useEffect(() => {
-    setTimeout(() => {
-      // todo : user login check
+  const {validate, loading} = useAuthValidation();
 
-      validate
-        ? navigation.navigate(ScreenName.TABS)
-        : navigation.navigate(ScreenName.LOGIN);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!loading) {
+        navigation.navigate(validate ? ScreenName.TABS : ScreenName.LOGIN);
+      }
     }, 1000);
-  }, [navigation, validate]);
+
+    return () => clearTimeout(timer);
+  }, [loading, navigation, validate]);
 
   return (
     <View style={styles.screen}>
