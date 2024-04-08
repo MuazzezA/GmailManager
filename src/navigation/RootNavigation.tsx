@@ -6,12 +6,21 @@ import Splash from '../screens/Splash.tsx';
 import TabNavigation from './TabNavigation.tsx';
 import Login from '../screens/Login.tsx';
 import Settings from '../screens/Settings.tsx';
+import {colors} from '../constants/Theme.ts';
+// import {useAuthValidation} from '../hooks/useAuthValidation.ts';
 
 const Stack = createStackNavigator();
 export default function RootNavigation() {
+  // const {validate} = useAuthValidation();
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={ScreenName.SPLASH}>
+      <Stack.Navigator
+        initialRouteName={ScreenName.SPLASH}
+        screenOptions={{
+          headerShown: false,
+          cardStyle: {backgroundColor: colors.background},
+        }}>
         <Stack.Screen
           name={ScreenName.SPLASH}
           component={Splash}

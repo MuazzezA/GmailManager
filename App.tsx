@@ -5,12 +5,12 @@
  *
  */
 
-import 'react-native-gesture-handler';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {PaperProvider, MD3LightTheme as DefaultTheme} from 'react-native-paper';
 import {colors} from './src/constants/Theme.ts';
 import RootNavigation from './src/navigation/RootNavigation.tsx';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {configureGoogleAPI} from './src/helpers/configureGoogleAPI.ts';
 
 const theme = {
   ...DefaultTheme,
@@ -20,7 +20,12 @@ const theme = {
     secondary: colors.secondary,
   },
 };
-function App(): React.JSX.Element {
+
+function App() {
+  useEffect(() => {
+    configureGoogleAPI();
+  }, []);
+
   return (
     <SafeAreaProvider>
       <PaperProvider theme={theme}>
