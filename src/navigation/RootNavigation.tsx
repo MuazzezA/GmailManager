@@ -7,9 +7,11 @@ import TabNavigation from './TabNavigation.tsx';
 import Login from '../screens/Login.tsx';
 import Settings from '../screens/Settings.tsx';
 import {colors} from '../constants/Theme.ts';
+import Detail from '../screens/Detail.tsx';
+import {ScreenParams} from '../types/ScreenType.ts';
 // import {useAuthValidation} from '../hooks/useAuthValidation.ts';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<ScreenParams>();
 export default function RootNavigation() {
   // const {validate} = useAuthValidation();
 
@@ -28,6 +30,14 @@ export default function RootNavigation() {
         />
         <Stack.Screen name={ScreenName.LOGIN} component={Login} />
         <Stack.Screen name={ScreenName.SETTINGS} component={Settings} />
+        <Stack.Screen
+          name={ScreenName.DETAIL}
+          component={Detail}
+          options={{
+            headerShown: true,
+            headerBackTitleVisible: false,
+          }}
+        />
         <Stack.Screen name={ScreenName.TABS} component={TabNavigation} />
       </Stack.Navigator>
     </NavigationContainer>
