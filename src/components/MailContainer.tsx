@@ -37,7 +37,7 @@ export const MailContainer = (props: MailBoxProps) => {
             size={16}
             weight={'700'}
           />
-          <GText numberOfLines={1} text={he.decode(subject?.value ?? '')} />
+          <GText numberOfLines={1} text={he.decode(subject ?? '')} />
           <GText
             numberOfLines={2}
             size={12}
