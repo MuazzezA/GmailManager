@@ -14,7 +14,7 @@ type FontWeight =
   | '800'
   | '900';
 
-interface GTextProps extends Omit<TextProps, 'style'> {
+interface GTextProps extends TextProps {
   text: string;
   color?: string;
   size?: number;
