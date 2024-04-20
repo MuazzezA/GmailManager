@@ -12,7 +12,7 @@ import {ScreenName} from '../navigation/ScreenName.ts';
 import {MailContainer} from '../components/MailContainer.tsx';
 import {useGetPrepareMail} from '../hooks/useGetPrepareMail.ts';
 import {useUserMails} from '../hooks/useUserMails.ts';
-const PER_COUNT = 20;
+const PER_COUNT = 30;
 
 const Home = () => {
   const navigation = useNavigation();
@@ -43,6 +43,7 @@ const Home = () => {
       });
     }
   };
+
   return (
     <SafeAreaView style={styles.screen}>
       <TextInput
@@ -52,13 +53,16 @@ const Home = () => {
         onChangeText={(value: string) => setText(value)}
         style={styles.input}
       />
-      {session || !loadingIDList ? (
+      {!session || loadingIDList || !mails ? (
+        <ActivityIndicator style={styles.indicator} />
+      ) : (
         <FlatList
           contentContainerStyle={styles.flatList}
           showsVerticalScrollIndicator={false}
           pagingEnabled={true}
           data={mails}
           onEndReached={onEndReachedFlatList}
+          ListFooterComponent={<ActivityIndicator style={styles.indicator} />}
           renderItem={({item}) => (
             <MailContainer
               key={`mail-${item.id}`}
@@ -70,8 +74,6 @@ const Home = () => {
             />
           )}
         />
-      ) : (
-        <ActivityIndicator />
       )}
     </SafeAreaView>
   );
@@ -86,5 +88,11 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   input: {backgroundColor: colors.background, marginHorizontal: 8},
+  indicator: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+  },
 });
 export default Home;
