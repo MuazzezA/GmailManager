@@ -6,5 +6,5 @@ export const getEmailSubject = (mail: MailType) => {
   }
   const headers = mail.payload.headers;
   const subject = headers.find(h => h.name === 'Subject');
-  return subject?.value;
+  return subject?.value ?? ' ';
 };
