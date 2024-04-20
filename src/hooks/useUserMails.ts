@@ -24,17 +24,13 @@ export const useUserMails = (props: {
     setLoading(true);
     const fetchData = async () => {
       try {
-        const newMails: MailType[] = [];
-
         for (
           let i = pagination.start;
           i < Math.min(pagination.end, mailIDList.length);
           i++
         ) {
           const item = mailIDList[i];
-          if (!item) {
-            continue;
-          }
+
           if (
             !mails
               .filter(m => !!m.id)
@@ -42,14 +38,14 @@ export const useUserMails = (props: {
           ) {
             try {
               const response = await getMailItem(item.id);
-              newMails.push(response);
+              setMails(prevData => [...prevData, response]);
             } catch (error) {
               console.error('Error fetching data:', error);
             }
           }
         }
 
-        setMails(prevData => [...prevData, ...newMails]);
+        //setMails(prevData => [...prevData, ...newMails]);
         setLoading(false);
       } catch (error) {
         setLoading(false);
