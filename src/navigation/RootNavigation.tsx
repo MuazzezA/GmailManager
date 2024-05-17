@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {ScreenName} from './ScreenName.ts';
+import {RootStackParamList, ScreenName} from './ScreenName.ts';
 import {createStackNavigator} from '@react-navigation/stack';
 import Splash from '../screens/Splash.tsx';
 import TabNavigation from './TabNavigation.tsx';
@@ -11,7 +11,7 @@ import Detail from '../screens/Detail.tsx';
 import {ScreenParams} from '../types/ScreenType.ts';
 // import {useAuthValidation} from '../hooks/useAuthValidation.ts';
 
-const Stack = createStackNavigator<ScreenParams>();
+const Stack = createStackNavigator<RootStackParamList>();
 export default function RootNavigation() {
   // const {validate} = useAuthValidation();
 
