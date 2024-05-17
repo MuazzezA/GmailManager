@@ -36,6 +36,7 @@ export default function RootNavigation() {
           options={{
             headerShown: true,
             headerBackTitleVisible: false,
+            headerTitle: '',
           }}
         />
         <Stack.Screen name={ScreenName.TABS} component={TabNavigation} />
