@@ -12,6 +12,7 @@ import {ScreenName} from '../navigation/ScreenName.ts';
 import {MailContainer} from '../components/MailContainer.tsx';
 import {useGetPrepareMail} from '../hooks/useGetPrepareMail.ts';
 import {useUserMails} from '../hooks/useUserMails.ts';
+import {useSearchMail} from '../hooks/useSearchMail.ts';
 const PER_COUNT = 30;
 
 const Home = () => {
@@ -28,6 +29,7 @@ const Home = () => {
     session,
     loadingIDList,
   });
+  const {searchMail, searchResult} = useSearchMail(mails);
 
   const onEndReachedFlatList = () => {
     if (
@@ -48,9 +50,9 @@ const Home = () => {
     <SafeAreaView style={styles.screen}>
       <TextInput
         label="Search"
-        mode="outlined"
+        mode="flat"
         value={text}
-        onChangeText={(value: string) => setText(value)}
+        onChangeText={(value: string) => searchMail(value)}
         style={styles.input}
       />
       {!session || loadingIDList || !mails ? (
@@ -87,7 +89,10 @@ const styles = StyleSheet.create({
   flatList: {
     padding: 8,
   },
-  input: {backgroundColor: colors.background, marginHorizontal: 8},
+  input: {
+    backgroundColor: colors.background,
+    marginHorizontal: 8,
+  },
   indicator: {
     flex: 1,
     justifyContent: 'center',
