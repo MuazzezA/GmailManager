@@ -7,8 +7,8 @@ export type MailType = {
     partId: string;
     fileName: string;
     headers: {name: string; value: string}[];
-    body: unknown;
-    parts: unknown[];
+    body: {data: string};
+    parts: {mimeType: string; body: {data: string}}[];
   };
   historyId: string;
   internalDate: string;
