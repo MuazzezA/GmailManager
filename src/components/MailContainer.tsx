@@ -24,6 +24,7 @@ export const MailContainer = (props: MailBoxProps) => {
   const sender = getEmailSender(mail);
   return (
     <TouchableOpacity
+      activeOpacity={0.8}
       style={styles.mailBox}
       key={`mail-${mail.id}${mail.threadId}`}
       onPress={onPress}>
@@ -34,13 +35,18 @@ export const MailContainer = (props: MailBoxProps) => {
           <GText
             numberOfLines={1}
             text={he.decode(sender)}
-            size={16}
+            size={18}
             weight={'700'}
           />
-          <GText numberOfLines={1} text={he.decode(subject ?? '')} />
+          <GText
+            size={14}
+            weight={'400'}
+            numberOfLines={1}
+            text={he.decode(subject ?? '')}
+          />
           <GText
             numberOfLines={2}
-            size={12}
+            size={14}
             weight={'300'}
             text={he.decode(mail.snippet ?? '')}
             style={styles.snippetText}
@@ -62,7 +68,7 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   snippetText: {
-    marginTop: 16,
+    marginTop: 8,
     textAlignVertical: 'top',
     textAlign: 'left',
   },
