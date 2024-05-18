@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {getUserSession} from '../store/storage.ts';
+import {getUserSession} from '../store/logic.ts';
 import {useEffect, useState} from 'react';
 
 export const useAuthValidation = () => {
