@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from 'react';
-import {getUserSession} from '../store/storage.ts';
+import {getUserSession} from '../store/logic.ts';
 import {getMail} from '../helpers/getUserMail.ts';
 
 export const useGetPrepareMail = () => {

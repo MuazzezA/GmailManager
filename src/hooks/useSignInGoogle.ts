@@ -1,6 +1,6 @@
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {useState} from 'react';
-import {setUserSession, storeUserData} from '../store/storage.ts';
+import {setUserSession, storeUserData} from '../store/logic.ts';
 
 export const useSignInGoogle = () => {
   const [loading, setLoading] = useState(false);

@@ -1,4 +1,4 @@
-import {getUserData, getUserSession} from '../store/storage.ts';
+import {getUserData, getUserSession} from '../store/logic.ts';
 
 export const getMail = async () => {
   const user = await getUserData();

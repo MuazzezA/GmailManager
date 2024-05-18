@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {getUserSession} from '../store/storage.ts';
+import {getUserSession} from '../store/logic.ts';
 
 const userAuthValidation = async () => {
   try {

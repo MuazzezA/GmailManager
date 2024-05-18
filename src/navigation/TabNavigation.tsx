@@ -5,6 +5,7 @@ import Home from '../screens/Home.tsx';
 import Folders from '../screens/Folders.tsx';
 import MailSvg from '../assets/icons/email.svg';
 import FolderSvg from '../assets/icons/folders.svg';
+import {colors} from '../constants/Theme.ts';
 
 const Tab = createBottomTabNavigator();
 export default function TabNavigation() {
@@ -12,6 +13,15 @@ export default function TabNavigation() {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
+        tabBarStyle: {
+          position: 'absolute',
+          backgroundColor: colors.text,
+          borderTopWidth: 4,
+          borderTopColor: colors.primary,
+          borderTopStartRadius: 8,
+          borderTopEndRadius: 8,
+        },
+        tabBarHideOnKeyboard: true,
       }}>
       <Tab.Screen
         name={ScreenName.HOME}

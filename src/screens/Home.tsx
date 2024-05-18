@@ -4,6 +4,7 @@ import {
   FlatList,
   StyleSheet,
   SafeAreaView,
+  View,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {colors} from '../constants/Theme.ts';
@@ -13,6 +14,7 @@ import {MailContainer} from '../components/MailContainer.tsx';
 import {useGetPrepareMail} from '../hooks/useGetPrepareMail.ts';
 import {useUserMails} from '../hooks/useUserMails.ts';
 import {useSearchMail} from '../hooks/useSearchMail.ts';
+import GText from '../components/GText.tsx';
 const PER_COUNT = 30;
 
 const Home = () => {
@@ -52,9 +54,16 @@ const Home = () => {
         label="Search"
         mode="flat"
         value={text}
-        onChangeText={(value: string) => searchMail(value)}
+        onChangeText={(value: string) => {
+          setText(value);
+          searchMail(value);
+        }}
         style={styles.input}
       />
+      <View style={styles.actionContainer}>
+        {/* todo : filters and selectable */}
+        <GText text={'filters'} />
+      </View>
       {!session || loadingIDList || !mails ? (
         <ActivityIndicator style={styles.indicator} />
       ) : (
@@ -84,7 +93,7 @@ const Home = () => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: colors.text,
+    backgroundColor: colors.background,
   },
   flatList: {
     padding: 8,
@@ -98,6 +107,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 50,
+  },
+  actionContainer: {
+    padding: 8,
   },
 });
 export default Home;
