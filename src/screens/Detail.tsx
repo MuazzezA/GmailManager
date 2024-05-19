@@ -1,11 +1,12 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {StyleSheet, SafeAreaView} from 'react-native';
+import {StyleSheet, SafeAreaView, TouchableOpacity} from 'react-native';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {ScreenName} from '../navigation/ScreenName.ts';
 import {getEmailSender} from '../helpers/getEmailSender.ts';
 import WebView from 'react-native-webview';
 import {getMailBody} from '../helpers/getMailBody.tsx';
 import {MailType} from '../types/MailType.ts';
+import Plus from '../assets/icons/plus.svg';
 
 const Detail = () => {
   const navigation = useNavigation();
@@ -13,11 +14,32 @@ const Detail = () => {
   const mail = route.params?.mail as MailType;
   const sender = getEmailSender(mail);
 
+  const isInFolders = () => {
+    return false;
+    // todo : folder list empty check -> create folder -> add auto
+  };
+
+  const addToFolder = () => {
+    console.log('add to folder');
+  };
+
+  const deleteFromFolder = () => {
+    console.log('delete');
+  };
+
   useLayoutEffect(() => {
     const title =
       sender?.length > 20 ? `${sender.substring(0, 25)}...` : sender;
     navigation.setOptions({
       headerTitle: title,
+      headerRight: () => (
+        <TouchableOpacity
+          style={{padding: 6}}
+          activeOpacity={0.8}
+          onPress={addToFolder}>
+          <Plus />
+        </TouchableOpacity>
+      ),
     });
   }, []);
 
@@ -38,8 +60,6 @@ const styles = StyleSheet.create({
   screen: {
     gap: 8,
     flex: 1,
-    marginHorizontal: 8,
-    backgroundColor: 'white',
   },
 });
 export default Detail;
