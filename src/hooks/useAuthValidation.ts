@@ -15,7 +15,7 @@ export const useAuthValidation = () => {
         const response = await axios.get(
           `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`,
         );
-        console.log('Token information:', response.data);
+        //console.log('Token information:', response.data);
         setLoading(false);
         setValidate(true);
         return;

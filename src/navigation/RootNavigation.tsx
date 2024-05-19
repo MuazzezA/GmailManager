@@ -1,4 +1,5 @@
 import React from 'react';
+import {TouchableOpacity} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {RootStackParamList, ScreenName} from './ScreenName.ts';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -8,9 +9,10 @@ import Login from '../screens/Login.tsx';
 import Settings from '../screens/Settings.tsx';
 import {colors} from '../constants/Theme.ts';
 import Detail from '../screens/Detail.tsx';
+import Plus from '../assets/icons/plus.svg';
 import {ScreenParams} from '../types/ScreenType.ts';
+import {Button} from 'react-native-paper';
 // import {useAuthValidation} from '../hooks/useAuthValidation.ts';
-
 const Stack = createStackNavigator<RootStackParamList>();
 export default function RootNavigation() {
   // const {validate} = useAuthValidation();
