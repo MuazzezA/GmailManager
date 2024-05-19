@@ -12,7 +12,12 @@ export default function TabNavigation() {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
+        headerStyle: {
+          backgroundColor: colors.text,
+          borderRadius: 4,
+        },
+        headerTintColor: colors.background,
         tabBarStyle: {
           position: 'absolute',
           backgroundColor: colors.text,
@@ -27,6 +32,7 @@ export default function TabNavigation() {
         name={ScreenName.HOME}
         component={Home}
         options={{
+          headerTitle: 'Home',
           tabBarLabel: '',
           tabBarIcon: ({size, focused}) => (
             <MailSvg
@@ -40,6 +46,7 @@ export default function TabNavigation() {
         name={ScreenName.FOLDERS}
         component={Folders}
         options={{
+          headerTitle: 'Folders',
           tabBarLabel: '',
           tabBarIcon: ({size, focused}) => (
             <FolderSvg

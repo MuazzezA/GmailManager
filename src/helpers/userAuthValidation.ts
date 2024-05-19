@@ -11,7 +11,7 @@ const userAuthValidation = async () => {
     const response = await axios.get(
       `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`,
     );
-    console.log('Token information:', response.data);
+    //console.log('Token information:', response.data);
     return {isValid: true, data: response.data};
   } catch (error) {
     console.error('Error validating token:', error);
