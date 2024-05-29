@@ -11,8 +11,8 @@ import {CreateFolderModal} from '../components/CreateFolderModal.tsx';
 
 const Folders = () => {
   const navigation = useNavigation();
-  const [folderName, setFolderName] = React.useState('test folder name');
-  const [folderSubject, setFolderSubject] = React.useState('test-1');
+  const [folderName, setFolderName] = React.useState('');
+  const [folderSubject, setFolderSubject] = React.useState('');
   const [visible, setVisible] = React.useState(false);
 
   const {createFolder, deleteFolder, folders} = useFolders();
