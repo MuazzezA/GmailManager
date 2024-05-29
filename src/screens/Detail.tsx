@@ -7,6 +7,7 @@ import WebView from 'react-native-webview';
 import {getMailBody} from '../helpers/getMailBody.tsx';
 import {MailType} from '../types/MailType.ts';
 import Plus from '../assets/icons/plus.svg';
+import {FolderListModal} from '../components/FolderListModal.tsx';
 
 const Detail = () => {
   const navigation = useNavigation();
@@ -14,17 +15,14 @@ const Detail = () => {
   const mail = route.params?.mail as MailType;
   const sender = getEmailSender(mail);
 
+  const [isModalVisible, setModalVisible] = useState(false);
   const isInFolders = () => {
     return false;
     // todo : folder list empty check -> create folder -> add auto
   };
 
-  const addToFolder = () => {
-    console.log('add to folder');
-  };
-
-  const deleteFromFolder = () => {
-    console.log('delete');
+  const openFolderList = () => {
+    setModalVisible(!isModalVisible);
   };
 
   useLayoutEffect(() => {
@@ -36,7 +34,7 @@ const Detail = () => {
         <TouchableOpacity
           style={{padding: 6}}
           activeOpacity={0.8}
-          onPress={addToFolder}>
+          onPress={openFolderList}>
           <Plus />
         </TouchableOpacity>
       ),
@@ -51,6 +49,11 @@ const Detail = () => {
         bounces={false}
         source={{html: getMailBody(mail)}}
         style={{flex: 1}}
+      />
+      <FolderListModal
+        visible={isModalVisible}
+        setModalVisible={setModalVisible}
+        mail={mail}
       />
     </SafeAreaView>
   );
