@@ -1,12 +1,18 @@
 import React from 'react';
-import {Dimensions, Image, StyleSheet, View} from 'react-native';
+import {Dimensions, Image, StyleSheet, View, ViewStyle} from 'react-native';
 import GText from './GText.tsx';
 import {colors} from '../constants/Theme.ts';
 const {width, height} = Dimensions.get('window');
 
-export const EmptyList = ({showModal}: {showModal: () => void}) => {
+export const EmptyList = ({
+  showModal,
+  style,
+}: {
+  showModal: () => void;
+  style?: ViewStyle;
+}) => {
   return (
-    <View style={styles.emptyList}>
+    <View style={{...styles.emptyList, ...style}}>
       <GText text={"We couldn't find the folder."} style={styles.emptyText} />
       <Image
         source={require('../assets/icons/empty-box.png')}
