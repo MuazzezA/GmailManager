@@ -20,27 +20,26 @@ export const useFolders = () => {
     folderSubject: string;
     createAfter: () => void;
   }) => {
-    if (folderName.length > 3 || folderSubject.length > 5) {
-      return;
+    if (folderName.length > 3 && folderSubject.length > 5) {
+      const newList = folders
+        ? [
+            ...folders,
+            {
+              folderName,
+              folderSubject,
+              id: folders.length + 1,
+            },
+          ]
+        : [
+            {
+              folderName,
+              folderSubject,
+              id: 0,
+            },
+          ];
+      setFolders(newList);
+      createAfter?.();
     }
-    const newList = folders
-      ? [
-          ...folders,
-          {
-            folderName,
-            folderSubject,
-            id: folders.length + 1,
-          },
-        ]
-      : [
-          {
-            folderName,
-            folderSubject,
-            id: 0,
-          },
-        ];
-    setFolders(newList);
-    createAfter?.();
   };
 
   const deleteFolder = (folder: FolderType) => {

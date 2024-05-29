@@ -43,28 +43,30 @@ export const CreateFolderModal = ({
             <KeyboardAvoidingView
               behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
               style={styles.keyboardView}>
-              <View style={styles.modalView}>
-                <GText text={'Enter Folder Information'} />
-                <TextInput
-                  label="Folder Name"
-                  mode="flat"
-                  value={folderName}
-                  onChangeText={value => setFolderName(value)}
-                  style={styles.input2}
-                />
-                <TextInput
-                  label="Folder Subject"
-                  mode="flat"
-                  value={folderSubject}
-                  onChangeText={value => setFolderSubject(value)}
-                  style={styles.input2}
-                />
-                <Button
-                  style={{right: 8, position: 'absolute', bottom: 12}}
-                  onPress={() => doneButtonPress()}>
-                  OK
-                </Button>
-              </View>
+              <TouchableWithoutFeedback onPress={() => {}}>
+                <View style={styles.modalView}>
+                  <GText text={'Enter Folder Information'} />
+                  <TextInput
+                    label="Folder Name"
+                    mode="flat"
+                    value={folderName}
+                    onChangeText={value => setFolderName(value)}
+                    style={styles.input2}
+                  />
+                  <TextInput
+                    label="Folder Subject"
+                    mode="flat"
+                    value={folderSubject}
+                    onChangeText={value => setFolderSubject(value)}
+                    style={styles.input2}
+                  />
+                  <Button
+                    style={{right: 8, position: 'absolute', bottom: 12}}
+                    onPress={() => doneButtonPress()}>
+                    OK
+                  </Button>
+                </View>
+              </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
           </View>
         </TouchableWithoutFeedback>
@@ -78,7 +80,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   modalBackground: {
     flex: 1,
     justifyContent: 'center',
