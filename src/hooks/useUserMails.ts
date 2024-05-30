@@ -6,7 +6,7 @@ import {Alert} from 'react-native';
 export const useUserMails = (props: {
   mailIDList: {id: string}[];
   session: unknown;
-  loadingIDList: boolean;
+  loadingIDList?: boolean;
 }) => {
   const {mailIDList, loadingIDList} = props;
   const [mails, setMails] = useState<MailType[]>([]);

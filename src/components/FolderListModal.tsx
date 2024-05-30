@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
   Dimensions,
   FlatList,
@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import {useAppStore} from '../store/store.ts';
 import GText from './GText.tsx';
-import {MailType} from '../types/MailType.ts';
 import {EmptyList} from './EmptyList.tsx';
 import {useNavigation} from '@react-navigation/native';
 import {colors} from '../constants/Theme.ts';
@@ -20,16 +19,16 @@ const MODAL_HEIGHT = height / 2;
 export const FolderListModal = ({
   visible,
   setModalVisible,
-  mail,
+  saveToFolder,
 }: {
   visible: boolean;
   setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  mail: MailType;
+  saveToFolder: (folderId: number) => void;
 }) => {
   const {folders} = useAppStore(state => ({
     folders: state.folders,
   }));
-  // [{"folderName": "Social", "folderSubject": "social mails and contact", "id": 1}]
+
   const navigation = useNavigation();
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -66,7 +65,10 @@ export const FolderListModal = ({
                   data={folders}
                   keyExtractor={item => item.id}
                   renderItem={({item}) => (
-                    <TouchableOpacity style={styles.item} activeOpacity={0.7}>
+                    <TouchableOpacity
+                      style={styles.item}
+                      activeOpacity={0.7}
+                      onPress={() => saveToFolder?.(item.id)}>
                       <View style={styles.dot} />
                       <GText style={styles.itemText} text={item.folderName} />
                     </TouchableOpacity>
