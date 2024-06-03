@@ -5,6 +5,7 @@ import {
   StyleSheet,
   SafeAreaView,
   View,
+  TouchableOpacity,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {colors} from '../constants/Theme.ts';
@@ -14,13 +15,17 @@ import {MailContainer} from '../components/MailContainer.tsx';
 import {useGetPrepareMail} from '../hooks/useGetPrepareMail.ts';
 import {useUserMails} from '../hooks/useUserMails.ts';
 import {useSearchMail} from '../hooks/useSearchMail.ts';
-import GText from '../components/GText.tsx';
+import SearchIcon from '../assets/icons/search.svg';
+import CloseIcon from '../assets/icons/close.svg';
+import {EmptySearchList} from '../components/EmptySearchList.tsx';
 const PER_COUNT = 30;
 
 const Home = () => {
   const navigation = useNavigation();
   const [text, setText] = React.useState('');
+  const [isActiveSearch, setIsActiveSearch] = React.useState(false);
   const {session, mailIDList, loading: loadingIDList} = useGetPrepareMail();
+
   const {
     mails,
     pagination,
@@ -31,7 +36,7 @@ const Home = () => {
     session,
     loadingIDList,
   });
-  const {searchMail, searchResult} = useSearchMail(mails);
+  const {searchMail, searchResult, searchResultLoading} = useSearchMail();
 
   const onEndReachedFlatList = () => {
     if (
@@ -47,33 +52,78 @@ const Home = () => {
       });
     }
   };
+  const isVisibleLoader =
+    (isActiveSearch && searchResult?.length > 5) ||
+    (!isActiveSearch && mails?.length > 5);
+
+  const searchAction = () => {
+    searchMail(text).then(res => {
+      setIsActiveSearch(true);
+    });
+  };
+
+  const cancelSearchAction = () => {
+    setIsActiveSearch(false);
+    setText('');
+  };
+
+  const searchButtonAction = () => {
+    if (isActiveSearch) {
+      setIsActiveSearch(false);
+      setText('');
+    } else {
+      searchMail(text).then(res => {
+        setIsActiveSearch(true);
+      });
+    }
+  };
 
   return (
     <SafeAreaView style={styles.screen}>
-      <TextInput
-        label="Search"
-        mode="flat"
-        value={text}
-        onChangeText={(value: string) => {
-          setText(value);
-          searchMail(value);
-        }}
-        style={styles.input}
-      />
-      <View style={styles.actionContainer}>
-        {/* todo : filters and selectable */}
-        <GText text={'filters'} />
+      <View style={styles.inputContainer}>
+        <TextInput
+          label="Search"
+          mode="flat"
+          value={text}
+          onChangeText={(value: string) => {
+            if (isActiveSearch) {
+              setIsActiveSearch(false);
+            }
+            setText(value);
+            // searchMail(value).then();
+          }}
+          style={styles.input}
+        />
+        <TouchableOpacity activeOpacity={0.7} onPress={searchButtonAction}>
+          {isActiveSearch ? <CloseIcon /> : <SearchIcon />}
+        </TouchableOpacity>
       </View>
-      {!session || loadingIDList || !mails ? (
+      {/*<View style={styles.actionContainer}>
+         todo : filters and selectable
+        <GText text={'filters'} />
+      </View>*/}
+      {!session ||
+      loadingIDList ||
+      loadingMails ||
+      !mails ||
+      searchResultLoading ? (
         <ActivityIndicator style={styles.indicator} />
       ) : (
         <FlatList
+          style={{marginTop: 2}}
           contentContainerStyle={styles.flatList}
           showsVerticalScrollIndicator={false}
           pagingEnabled={true}
-          data={mails}
+          data={isActiveSearch ? searchResult : mails}
           onEndReached={onEndReachedFlatList}
-          ListFooterComponent={<ActivityIndicator style={styles.indicator} />}
+          ListFooterComponent={
+            isVisibleLoader ? (
+              <ActivityIndicator style={styles.indicator} />
+            ) : null
+          }
+          ListEmptyComponent={
+            <EmptySearchList cancelSearchAction={cancelSearchAction} />
+          }
           renderItem={({item}) => (
             <MailContainer
               key={`mail-${item.id}`}
@@ -100,7 +150,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: colors.background,
-    marginHorizontal: 8,
+    width: '85%',
   },
   indicator: {
     flex: 1,
@@ -110,6 +160,13 @@ const styles = StyleSheet.create({
   },
   actionContainer: {
     padding: 8,
+  },
+  inputContainer: {
+    width: '100%',
+    paddingHorizontal: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
   },
 });
 export default Home;

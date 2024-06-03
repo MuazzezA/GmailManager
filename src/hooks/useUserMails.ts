@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react';
-import {getMailItem} from '../helpers/getUserMail.ts';
 import {MailType} from '../types/MailType.ts';
-import {Alert} from 'react-native';
+import {getMails} from '../helpers/getMails.ts';
 
 export const useUserMails = (props: {
   mailIDList: {id: string}[];
@@ -23,37 +22,18 @@ export const useUserMails = (props: {
     }
     setLoading(true);
     const fetchData = async () => {
-      try {
-        for (
-          let i = pagination.start;
-          i < Math.min(pagination.end, mailIDList.length);
-          i++
-        ) {
-          const item = mailIDList[i];
-
-          if (
-            !mails
-              .filter(m => !!m.id)
-              .find(mail => mail.id.toString() === item.id.toString())
-          ) {
-            try {
-              const response = await getMailItem(item.id);
-              setMails(prevData => [...prevData, response]);
-            } catch (error) {
-              console.error('Error fetching data:', error);
-            }
-          }
-        }
-
-        //setMails(prevData => [...prevData, ...newMails]);
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-        Alert.alert('Have Some Problem');
-      }
+      await getMails({
+        setLoading,
+        pagination,
+        mailIDList,
+        setMails,
+        mails,
+      });
     };
 
-    fetchData().then();
+    fetchData()
+      .then()
+      .finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination.end, pagination.start, mailIDList, loadingIDList, loading]);
 
