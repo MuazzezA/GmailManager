@@ -19,7 +19,6 @@ export const useSearchMail = () => {
     setLoading(true);
     getMail(searchText)
       .then(async res => {
-        console.log('res : ', res);
         if (res?.resultSizeEstimate > 0) {
           setMailIDList(res?.messages);
 
@@ -30,16 +29,11 @@ export const useSearchMail = () => {
             mails: searchResult,
             setMails: setSearchResult,
           });
-        } else {
-          console.warn('veri yok');
         }
       })
-      .catch(() => {});
-
-    console.log('DATA : ', JSON.stringify(searchResult));
-
-    setLoading(false);
+      .catch(() => {})
+      .finally(() => setLoading(false));
   };
 
-  return {searchMail, searchResult};
+  return {searchMail, searchResult, searchResultLoading: loading};
 };
