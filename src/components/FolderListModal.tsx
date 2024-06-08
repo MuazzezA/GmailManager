@@ -20,10 +20,12 @@ export const FolderListModal = ({
   visible,
   setModalVisible,
   saveToFolder,
+  savedFolderId,
 }: {
   visible: boolean;
   setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
   saveToFolder: (folderId: number) => void;
+  savedFolderId: number[];
 }) => {
   const {folders} = useAppStore(state => ({
     folders: state.folders,
@@ -69,7 +71,19 @@ export const FolderListModal = ({
                       style={styles.item}
                       activeOpacity={0.7}
                       onPress={() => saveToFolder?.(item.id)}>
-                      <View style={styles.dot} />
+                      <View
+                        style={[
+                          styles.dot,
+                          {
+                            backgroundColor: savedFolderId.includes(item.id)
+                              ? colors.primary
+                              : colors.background,
+                            borderColor: savedFolderId.includes(item.id)
+                              ? colors.primary
+                              : colors.text,
+                          },
+                        ]}
+                      />
                       <GText style={styles.itemText} text={item.folderName} />
                     </TouchableOpacity>
                   )}
@@ -125,13 +139,13 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontSize: 18,
+    lineHeight: 28,
   },
   dot: {
-    height: 12,
-    width: 12,
-    borderRadius: 6,
+    height: 16,
+    width: 16,
+    borderRadius: 8,
     borderWidth: 2,
-    borderColor: colors.text,
-    backgroundColor: colors.secondary,
+    marginTop: 4,
   },
 });
