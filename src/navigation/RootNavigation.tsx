@@ -9,14 +9,10 @@ import Login from '../screens/Login.tsx';
 import Settings from '../screens/Settings.tsx';
 import {colors} from '../constants/Theme.ts';
 import Detail from '../screens/Detail.tsx';
-import Plus from '../assets/icons/plus.svg';
-import {ScreenParams} from '../types/ScreenType.ts';
-import {Button} from 'react-native-paper';
-// import {useAuthValidation} from '../hooks/useAuthValidation.ts';
+import MailList from '../screens/MailList.tsx';
+
 const Stack = createStackNavigator<RootStackParamList>();
 export default function RootNavigation() {
-  // const {validate} = useAuthValidation();
-
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -35,6 +31,15 @@ export default function RootNavigation() {
         <Stack.Screen
           name={ScreenName.DETAIL}
           component={Detail}
+          options={{
+            headerShown: true,
+            headerBackTitleVisible: false,
+            headerTitle: '',
+          }}
+        />
+        <Stack.Screen
+          name={ScreenName.MAIL_LIST}
+          component={MailList}
           options={{
             headerShown: true,
             headerBackTitleVisible: false,
