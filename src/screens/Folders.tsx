@@ -8,6 +8,8 @@ import {useNavigation} from '@react-navigation/native';
 import {useFolders} from '../hooks/useFolders.ts';
 import {EmptyList} from '../components/EmptyList.tsx';
 import {CreateFolderModal} from '../components/CreateFolderModal.tsx';
+import {FolderType} from '../types/FolderType.ts';
+import {ScreenName} from '../navigation/ScreenName.ts';
 
 const Folders = () => {
   const navigation = useNavigation();
@@ -32,13 +34,13 @@ const Folders = () => {
   };
 
   const renderItem = useCallback(
-    ({item, index}: {item: any; index: number}) => {
+    ({item, index}: {item: FolderType; index: number}) => {
       return (
         <TouchableOpacity
           style={[styles.folderContainer, {borderColor: colors.primary}]}
           activeOpacity={0.8}
           onPress={() => {
-            // todo : go mail list
+            navigation.navigate(ScreenName.MAIL_LIST, {folder: item});
           }}>
           <View style={{gap: 8}}>
             <GText text={item.folderName} style={styles.nameText} />
