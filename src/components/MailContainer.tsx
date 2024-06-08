@@ -11,11 +11,14 @@ import he from 'he';
 import {getEmailSubject} from '../helpers/getEmailSubject.ts';
 import {MailType} from '../types/MailType.ts';
 import {getEmailSender} from '../helpers/getEmailSender.ts';
+import Trash from '../assets/icons/trash.svg';
 
 interface MailBoxProps {
   mail: MailType;
   onPress: () => void;
   index?: number;
+  isDeleteActive?: boolean;
+  deleteMailAction?: () => void;
 }
 
 export const MailContainer = (props: MailBoxProps) => {
@@ -53,6 +56,14 @@ export const MailContainer = (props: MailBoxProps) => {
           />
         </View>
       )}
+      {props?.isDeleteActive && (
+        <TouchableOpacity
+          style={styles.deleteIcon}
+          activeOpacity={0.8}
+          onPress={() => props.deleteMailAction?.()}>
+          <Trash width="24" height="24" />
+        </TouchableOpacity>
+      )}
     </TouchableOpacity>
   );
 };
@@ -71,5 +82,11 @@ const styles = StyleSheet.create({
     marginTop: 8,
     textAlignVertical: 'top',
     textAlign: 'left',
+  },
+  deleteIcon: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    padding: 8,
   },
 });
