@@ -6,8 +6,8 @@ import {StateCreator} from 'zustand';
 import {createWithEqualityFn} from 'zustand/traditional';
 
 type AppStateType = {
-  folders: FolderType | null;
-  setFolders: (data: FolderType) => void;
+  folders: FolderType[] | null;
+  setFolders: (data: FolderType[]) => void;
   savedMails: MailType | MailType[] | null;
   setSavedMails: (data: MailType | MailType[]) => void;
 };
@@ -17,7 +17,7 @@ const appStateSlice: StateCreator<
   [['zustand/persist', unknown]]
 > = set => ({
   folders: null,
-  setFolders: (data: FolderType) => set({folders: data}),
+  setFolders: (data: FolderType[]) => set({folders: data}),
   savedMails: null,
   setSavedMails: (data: MailType | MailType[]) => set({savedMails: data}),
 });
