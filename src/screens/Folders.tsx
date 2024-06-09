@@ -1,4 +1,4 @@
-import React, {useCallback, useLayoutEffect} from 'react';
+import React, {useCallback, useEffect, useLayoutEffect, useState} from 'react';
 import {FlatList, StyleSheet, View, TouchableOpacity} from 'react-native';
 import {colors} from '../constants/Theme.ts';
 import GText from '../components/GText.tsx';
@@ -8,15 +8,18 @@ import {useNavigation} from '@react-navigation/native';
 import {useFolders} from '../hooks/useFolders.ts';
 import {EmptyList} from '../components/EmptyList.tsx';
 import {CreateFolderModal} from '../components/CreateFolderModal.tsx';
+import {BannerAds} from '../components/BannerAds.tsx';
+import useInterstitialAd from '../hooks/useInterstitialAd.ts';
 
 const Folders = () => {
   const navigation = useNavigation();
   const [folderName, setFolderName] = React.useState('');
   const [folderSubject, setFolderSubject] = React.useState('');
   const [visible, setVisible] = React.useState(false);
+  const {loaded, showAd} = useInterstitialAd();
 
   const {createFolder, deleteFolder, folders} = useFolders();
-
+  const [showAds, setShowAds] = useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const createFolderItem = () => {
@@ -27,34 +30,39 @@ const Folders = () => {
         setFolderName('');
         setFolderSubject('');
         hideModal();
+        setShowAds(true);
       },
     });
   };
 
-  const renderItem = useCallback(
-    ({item, index}: {item: any; index: number}) => {
-      return (
+  useEffect(() => {
+    console.log(loaded);
+    if (showAds && loaded) {
+      showAd();
+    }
+  }, [showAds, loaded]);
+
+  const renderItem = useCallback(({item}: {item: any}) => {
+    return (
+      <TouchableOpacity
+        style={[styles.folderContainer, {borderColor: colors.primary}]}
+        activeOpacity={0.8}
+        onPress={() => {
+          // todo : go mail list
+        }}>
+        <View style={{gap: 8}}>
+          <GText text={item.folderName} style={styles.nameText} />
+          <GText text={item.folderSubject} style={styles.subjectText} />
+        </View>
         <TouchableOpacity
-          style={[styles.folderContainer, {borderColor: colors.primary}]}
           activeOpacity={0.8}
-          onPress={() => {
-            // todo : go mail list
-          }}>
-          <View style={{gap: 8}}>
-            <GText text={item.folderName} style={styles.nameText} />
-            <GText text={item.folderSubject} style={styles.subjectText} />
-          </View>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={{padding: 8}}
-            onPress={() => deleteFolder(item)}>
-            <Trash width="24" height="24" />
-          </TouchableOpacity>
+          style={{padding: 8}}
+          onPress={() => deleteFolder(item)}>
+          <Trash width="24" height="24" />
         </TouchableOpacity>
-      );
-    },
-    [],
-  );
+      </TouchableOpacity>
+    );
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -73,7 +81,12 @@ const Folders = () => {
     <View style={styles.safe}>
       <FlatList
         data={folders}
-        renderItem={renderItem}
+        renderItem={({item, index}) => (
+          <>
+            {index % 4 === 0 && <BannerAds style={{marginBottom: 12}} />}
+            {renderItem({item})}
+          </>
+        )}
         ListEmptyComponent={<EmptyList showModal={showModal} />}
         contentContainerStyle={styles.list}
       />
