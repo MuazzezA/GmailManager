@@ -72,7 +72,7 @@ const MailList = () => {
           color={colors.secondary}
         />
         <GText
-          text={`Mail Count : ${JSON.stringify(mailIDList?.length)}`}
+          text={`Mail Count : ${mailIDList?.length}`}
           color={colors.secondary}
         />
       </View>
