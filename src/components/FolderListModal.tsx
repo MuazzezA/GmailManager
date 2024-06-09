@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useMemo, useRef} from 'react';
 import {
   Dimensions,
   FlatList,
@@ -50,6 +50,11 @@ export const FolderListModal = ({
     }
   }, [visible]);
 
+  const savedList = useMemo(
+    () => folders && folders?.map(f => savedFolderId.includes(f.id)),
+    [folders?.length],
+  );
+
   return (
     <>
       <Animated.View
@@ -65,8 +70,7 @@ export const FolderListModal = ({
               <View style={styles.modalContainer}>
                 <FlatList
                   data={folders}
-                  keyExtractor={item => item.id}
-                  renderItem={({item}) => (
+                  renderItem={({item, index}) => (
                     <TouchableOpacity
                       style={styles.item}
                       activeOpacity={0.7}
@@ -75,12 +79,14 @@ export const FolderListModal = ({
                         style={[
                           styles.dot,
                           {
-                            backgroundColor: savedFolderId.includes(item.id)
-                              ? colors.primary
-                              : colors.background,
-                            borderColor: savedFolderId.includes(item.id)
-                              ? colors.primary
-                              : colors.text,
+                            backgroundColor:
+                              savedList && savedList[index]
+                                ? colors.primary
+                                : colors.background,
+                            borderColor:
+                              savedList && savedList[index]
+                                ? colors.primary
+                                : colors.text,
                           },
                         ]}
                       />
@@ -90,8 +96,8 @@ export const FolderListModal = ({
                   ListEmptyComponent={
                     <EmptyList
                       showModal={() => {
-                        // todo : burada oluştursa daha iyi olur
                         setModalVisible(false);
+                        // @ts-ignore
                         navigation.navigate('folders');
                       }}
                       style={{
