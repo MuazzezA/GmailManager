@@ -14,3 +14,8 @@ export type MailType = {
   internalDate: string;
   sizeEstimate: number;
 };
+
+export type SavedMailType = {
+  id: number;
+  mails: {id: string}[];
+};
