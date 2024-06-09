@@ -52,7 +52,7 @@ export const FolderListModal = ({
 
   const savedList = useMemo(
     () => folders && folders?.map(f => savedFolderId.includes(f.id)),
-    [folders?.length],
+    [folders?.length, savedFolderId],
   );
 
   return (
