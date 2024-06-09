@@ -1,15 +1,15 @@
 import {createJSONStorage, persist} from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {FolderType} from '../types/FolderType.ts';
-import {MailType} from '../types/MailType.ts';
+import {SavedMailType} from '../types/MailType.ts';
 import {StateCreator} from 'zustand';
 import {createWithEqualityFn} from 'zustand/traditional';
 
 type AppStateType = {
-  folders: FolderType | null;
-  setFolders: (data: FolderType) => void;
-  savedMails: MailType | MailType[] | null;
-  setSavedMails: (data: MailType | MailType[]) => void;
+  folders: FolderType[] | null;
+  setFolders: (data: FolderType[]) => void;
+  savedMails: SavedMailType[] | null;
+  setSavedMails: (data: SavedMailType[]) => void;
 };
 
 const appStateSlice: StateCreator<
@@ -17,9 +17,9 @@ const appStateSlice: StateCreator<
   [['zustand/persist', unknown]]
 > = set => ({
   folders: null,
-  setFolders: (data: FolderType) => set({folders: data}),
+  setFolders: (data: FolderType[]) => set({folders: data}),
   savedMails: null,
-  setSavedMails: (data: MailType | MailType[]) => set({savedMails: data}),
+  setSavedMails: (data: SavedMailType[]) => set({savedMails: data}),
 });
 
 export const useAppStore = createWithEqualityFn<AppStateType>()(
