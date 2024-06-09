@@ -50,11 +50,6 @@ export const FolderListModal = ({
     }
   }, [visible]);
 
-  const savedList = useMemo(
-    () => folders && folders?.map(f => savedFolderId.includes(f.id)),
-    [folders?.length, savedFolderId],
-  );
-
   return (
     <>
       <Animated.View
@@ -70,29 +65,33 @@ export const FolderListModal = ({
               <View style={styles.modalContainer}>
                 <FlatList
                   data={folders}
-                  renderItem={({item, index}) => (
-                    <TouchableOpacity
-                      style={styles.item}
-                      activeOpacity={0.7}
-                      onPress={() => saveToFolder?.(item.id)}>
-                      <View
-                        style={[
-                          styles.dot,
-                          {
-                            backgroundColor:
-                              savedList && savedList[index]
+                  renderItem={({item, index}) => {
+                    const contains = useMemo(
+                      () => savedFolderId.includes(item.id),
+                      [savedFolderId, item.id],
+                    );
+                    return (
+                      <TouchableOpacity
+                        style={styles.item}
+                        activeOpacity={0.7}
+                        onPress={() => saveToFolder?.(item.id)}>
+                        <View
+                          style={[
+                            styles.dot,
+                            {
+                              backgroundColor: contains
                                 ? colors.primary
                                 : colors.background,
-                            borderColor:
-                              savedList && savedList[index]
+                              borderColor: contains
                                 ? colors.primary
                                 : colors.text,
-                          },
-                        ]}
-                      />
-                      <GText style={styles.itemText} text={item.folderName} />
-                    </TouchableOpacity>
-                  )}
+                            },
+                          ]}
+                        />
+                        <GText style={styles.itemText} text={item.folderName} />
+                      </TouchableOpacity>
+                    );
+                  }}
                   ListEmptyComponent={
                     <EmptyList
                       showModal={() => {
