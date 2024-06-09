@@ -1,4 +1,8 @@
 {
   "name": "GmailManager",
-  "displayName": "GmailManager"
+  "displayName": "GmailManager",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-8452076246715539~2991772379",
+    "ios_app_id": "ca-app-pub-8452076246715539~3754189702"
+  }
 }
