@@ -22,7 +22,13 @@ interface MailBoxProps {
 }
 
 export const MailContainer = (props: MailBoxProps) => {
-  const {mail, onPress} = props;
+  const {
+    mail,
+    onPress,
+    isDeleteActive = false,
+    deleteMailAction = () => {},
+  } = props;
+
   const subject = getEmailSubject(mail);
   const sender = getEmailSender(mail);
   return (
@@ -56,11 +62,11 @@ export const MailContainer = (props: MailBoxProps) => {
           />
         </View>
       )}
-      {props?.isDeleteActive && (
+      {isDeleteActive && (
         <TouchableOpacity
           style={styles.deleteIcon}
           activeOpacity={0.8}
-          onPress={() => props.deleteMailAction?.()}>
+          onPress={deleteMailAction}>
           <Trash width="24" height="24" />
         </TouchableOpacity>
       )}
