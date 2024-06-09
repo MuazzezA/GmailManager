@@ -8,6 +8,8 @@ import {useNavigation} from '@react-navigation/native';
 import {useFolders} from '../hooks/useFolders.ts';
 import {EmptyList} from '../components/EmptyList.tsx';
 import {CreateFolderModal} from '../components/CreateFolderModal.tsx';
+import {FolderType} from '../types/FolderType.ts';
+import {ScreenName} from '../navigation/ScreenName.ts';
 import {BannerAds} from '../components/BannerAds.tsx';
 import useInterstitialAd from '../hooks/useInterstitialAd.ts';
 
@@ -42,27 +44,30 @@ const Folders = () => {
     }
   }, [showAds, loaded]);
 
-  const renderItem = useCallback(({item}: {item: any}) => {
-    return (
-      <TouchableOpacity
-        style={[styles.folderContainer, {borderColor: colors.primary}]}
-        activeOpacity={0.8}
-        onPress={() => {
-          // todo : go mail list
-        }}>
-        <View style={{gap: 8}}>
-          <GText text={item.folderName} style={styles.nameText} />
-          <GText text={item.folderSubject} style={styles.subjectText} />
-        </View>
+  const renderItem = useCallback(
+    ({item, index}: {item: FolderType; index: number}) => {
+      return (
         <TouchableOpacity
+          style={[styles.folderContainer, {borderColor: colors.primary}]}
           activeOpacity={0.8}
-          style={{padding: 8}}
-          onPress={() => deleteFolder(item)}>
-          <Trash width="24" height="24" />
+          onPress={() => {
+            navigation.navigate(ScreenName.MAIL_LIST, {folder: item});
+          }}>
+          <View style={{gap: 8}}>
+            <GText text={item.folderName} style={styles.nameText} />
+            <GText text={item.folderSubject} style={styles.subjectText} />
+          </View>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={{padding: 8}}
+            onPress={() => deleteFolder(item)}>
+            <Trash width="24" height="24" />
+          </TouchableOpacity>
         </TouchableOpacity>
-      </TouchableOpacity>
-    );
-  }, []);
+      );
+    },
+    [],
+  );
 
   useLayoutEffect(() => {
     navigation.setOptions({

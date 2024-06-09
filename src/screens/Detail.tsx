@@ -8,18 +8,18 @@ import {getMailBody} from '../helpers/getMailBody.tsx';
 import {MailType} from '../types/MailType.ts';
 import Plus from '../assets/icons/plus.svg';
 import {FolderListModal} from '../components/FolderListModal.tsx';
+import {useSaveMail} from '../hooks/useSaveMail.ts';
 
 const Detail = () => {
   const navigation = useNavigation();
-  const route = useRoute<RouteProp<ScreenName.DETAIL>>();
+  const route = useRoute();
   const mail = route.params?.mail as MailType;
   const sender = getEmailSender(mail);
 
   const [isModalVisible, setModalVisible] = useState(false);
-  const isInFolders = () => {
-    return false;
-    // todo : folder list empty check -> create folder -> add auto
-  };
+
+  const {addToFolder, deleteFromFolder, isSavedMail} = useSaveMail();
+  const savedFolder = isSavedMail(mail.id.toString());
 
   const openFolderList = () => {
     setModalVisible(!isModalVisible);
@@ -51,9 +51,10 @@ const Detail = () => {
         style={{flex: 1}}
       />
       <FolderListModal
+        savedFolderId={savedFolder}
         visible={isModalVisible}
         setModalVisible={setModalVisible}
-        mail={mail}
+        saveToFolder={folderId => addToFolder(mail.id, folderId)}
       />
     </SafeAreaView>
   );
