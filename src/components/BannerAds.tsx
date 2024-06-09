@@ -6,7 +6,7 @@ import {
 } from 'react-native-google-mobile-ads';
 import {Platform, View, ViewStyle} from 'react-native';
 import React, {useRef, useState} from 'react';
-import {DEFAULT_BANNER} from '@env';
+import ads from '../constants/Ads.ts';
 export const BannerAds = ({
   adId,
   style,
@@ -14,7 +14,7 @@ export const BannerAds = ({
   adId?: string;
   style?: ViewStyle;
 }) => {
-  const adUnitId = __DEV__ ? TestIds.ADAPTIVE_BANNER : adId ?? DEFAULT_BANNER;
+  const adUnitId = __DEV__ ? TestIds.ADAPTIVE_BANNER : adId ?? ads.HOME_BANNER;
 
   const bannerRef = useRef<BannerAd>(null);
 
@@ -32,7 +32,7 @@ export const BannerAds = ({
       <BannerAd
         onAdFailedToLoad={() => setIsFail(true)}
         ref={bannerRef}
-        unitId={adUnitId}
+        unitId={adUnitId!}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
       />
     </View>

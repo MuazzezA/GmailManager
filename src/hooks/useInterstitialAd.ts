@@ -4,11 +4,10 @@ import {
   TestIds,
 } from 'react-native-google-mobile-ads';
 import {useEffect, useState, useCallback} from 'react';
+import ads from '../constants/Ads.ts';
 
-const useInterstitialAd = (adId?: string) => {
-  const adUnitId = __DEV__
-    ? TestIds.ADAPTIVE_BANNER
-    : adId ?? 'ca-app-pub-8452076246715539/1112548645';
+const useInterstitialAd = ({adId}: {adId: string}) => {
+  const adUnitId = __DEV__ ? TestIds.ADAPTIVE_BANNER : adId;
 
   const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
     keywords: ['tools', 'manager'],

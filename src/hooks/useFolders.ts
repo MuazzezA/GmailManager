@@ -59,7 +59,7 @@ export const useFolders = () => {
     }
   };
 
-  const deleteFolder = (folder: FolderType[]) => {
+  const deleteFolder = (folder: FolderType) => {
     const newFolders = folders?.filter((f: FolderType) => f.id !== folder?.id);
     setFolders(newFolders);
   };

@@ -20,6 +20,7 @@ import CloseIcon from '../assets/icons/close.svg';
 import {EmptySearchList} from '../components/EmptySearchList.tsx';
 import {BannerAds} from '../components/BannerAds.tsx';
 import Setting from '../assets/icons/setting.svg';
+import ads from '../constants/Ads.ts';
 const PER_COUNT = 30;
 
 const Home = () => {
@@ -144,7 +145,9 @@ const Home = () => {
           }
           renderItem={({item, index}) => (
             <>
-              {index % 9 === 0 && <BannerAds style={{marginBottom: 12}} />}
+              {index % 9 === 0 && (
+                <BannerAds style={{marginBottom: 12}} adId={ads.HOME_BANNER} />
+              )}
               <MailContainer
                 key={`mail-${item.id}`}
                 mail={item}

@@ -12,13 +12,14 @@ import {FolderType} from '../types/FolderType.ts';
 import {ScreenName} from '../navigation/ScreenName.ts';
 import {BannerAds} from '../components/BannerAds.tsx';
 import useInterstitialAd from '../hooks/useInterstitialAd.ts';
+import ads from '../constants/Ads.ts';
 
 const Folders = () => {
   const navigation = useNavigation();
   const [folderName, setFolderName] = React.useState('');
   const [folderSubject, setFolderSubject] = React.useState('');
   const [visible, setVisible] = React.useState(false);
-  const {loaded, showAd} = useInterstitialAd();
+  const {loaded, showAd} = useInterstitialAd({adId: ads.AFTER_FOLDER_FULL!});
 
   const {createFolder, deleteFolder, folders} = useFolders();
   const [showAds, setShowAds] = useState(false);
@@ -44,30 +45,28 @@ const Folders = () => {
     }
   }, [showAds, loaded]);
 
-  const renderItem = useCallback(
-    ({item, index}: {item: FolderType; index: number}) => {
-      return (
+  const renderItem = useCallback(({item}: {item: FolderType}) => {
+    return (
+      <TouchableOpacity
+        style={[styles.folderContainer, {borderColor: colors.primary}]}
+        activeOpacity={0.8}
+        onPress={() => {
+          // @ts-ignore
+          navigation.navigate(ScreenName.MAIL_LIST, {folder: item});
+        }}>
+        <View style={{gap: 8}}>
+          <GText text={item.folderName} style={styles.nameText} />
+          <GText text={item.folderSubject} style={styles.subjectText} />
+        </View>
         <TouchableOpacity
-          style={[styles.folderContainer, {borderColor: colors.primary}]}
           activeOpacity={0.8}
-          onPress={() => {
-            navigation.navigate(ScreenName.MAIL_LIST, {folder: item});
-          }}>
-          <View style={{gap: 8}}>
-            <GText text={item.folderName} style={styles.nameText} />
-            <GText text={item.folderSubject} style={styles.subjectText} />
-          </View>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={{padding: 8}}
-            onPress={() => deleteFolder(item)}>
-            <Trash width="24" height="24" />
-          </TouchableOpacity>
+          style={{padding: 8}}
+          onPress={() => deleteFolder(item)}>
+          <Trash width="24" height="24" />
         </TouchableOpacity>
-      );
-    },
-    [],
-  );
+      </TouchableOpacity>
+    );
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -88,7 +87,9 @@ const Folders = () => {
         data={folders}
         renderItem={({item, index}) => (
           <>
-            {index % 4 === 0 && <BannerAds style={{marginBottom: 12}} />}
+            {index % 4 === 0 && (
+              <BannerAds style={{marginBottom: 12}} adId={ads.FOLDER_BANNER} />
+            )}
             {renderItem({item})}
           </>
         )}
