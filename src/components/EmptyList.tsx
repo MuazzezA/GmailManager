@@ -2,6 +2,7 @@ import React from 'react';
 import {Dimensions, Image, StyleSheet, View, ViewStyle} from 'react-native';
 import GText from './GText.tsx';
 import {colors} from '../constants/Theme.ts';
+import {BannerAds} from './BannerAds.tsx';
 const {width, height} = Dimensions.get('window');
 
 export const EmptyList = ({
@@ -27,6 +28,7 @@ export const EmptyList = ({
         }}
         onPress={showModal}
       />
+      <BannerAds />
     </View>
   );
 };
@@ -51,5 +53,6 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 18,
     fontWeight: '600',
+    marginBottom: 32,
   },
 });

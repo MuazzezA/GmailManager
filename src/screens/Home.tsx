@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -18,6 +18,8 @@ import {useSearchMail} from '../hooks/useSearchMail.ts';
 import SearchIcon from '../assets/icons/search.svg';
 import CloseIcon from '../assets/icons/close.svg';
 import {EmptySearchList} from '../components/EmptySearchList.tsx';
+import {BannerAds} from '../components/BannerAds.tsx';
+import Setting from '../assets/icons/setting.svg';
 const PER_COUNT = 30;
 
 const Home = () => {
@@ -78,6 +80,22 @@ const Home = () => {
     }
   };
 
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          style={{
+            paddingHorizontal: 12,
+            paddingVertical: 8,
+          }}
+          activeOpacity={0.8}
+          onPress={() => {}}>
+          <Setting stroke={colors.secondary} />
+        </TouchableOpacity>
+      ),
+    });
+  }, []);
+
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.inputContainer}>
@@ -124,15 +142,18 @@ const Home = () => {
           ListEmptyComponent={
             <EmptySearchList cancelSearchAction={cancelSearchAction} />
           }
-          renderItem={({item}) => (
-            <MailContainer
-              key={`mail-${item.id}`}
-              mail={item}
-              onPress={() =>
-                //@ts-ignore
-                navigation.navigate(ScreenName.DETAIL, {mail: item})
-              }
-            />
+          renderItem={({item, index}) => (
+            <>
+              {index % 9 === 0 && <BannerAds style={{marginBottom: 12}} />}
+              <MailContainer
+                key={`mail-${item.id}`}
+                mail={item}
+                onPress={() =>
+                  //@ts-ignore
+                  navigation.navigate(ScreenName.DETAIL, {mail: item})
+                }
+              />
+            </>
           )}
         />
       )}
