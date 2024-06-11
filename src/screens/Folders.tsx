@@ -41,7 +41,11 @@ const Folders = () => {
   useEffect(() => {
     console.log(loaded);
     if (showAds && loaded) {
-      showAd();
+      try {
+        showAd();
+      } catch (e) {
+        console.error('show ads error');
+      }
     }
   }, [showAds, loaded]);
 

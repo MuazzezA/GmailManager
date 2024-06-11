@@ -4,6 +4,8 @@ import {colors} from '../constants/Theme.ts';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenName} from '../navigation/ScreenName.ts';
 import {useAuthValidation} from '../hooks/useAuthValidation.ts';
+import mobileAds from 'react-native-google-mobile-ads';
+
 const Splash = () => {
   const navigation = useNavigation();
   const {validate, loading} = useAuthValidation();
@@ -11,6 +13,11 @@ const Splash = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!loading) {
+        mobileAds()
+          .initialize()
+          .then(adapterStatuses => {
+            console.info('Ads initialization complete!');
+          });
         navigation.navigate(validate ? ScreenName.TABS : ScreenName.LOGIN);
       }
     }, 1000);
