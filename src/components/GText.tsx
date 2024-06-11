@@ -37,7 +37,8 @@ const GText = (props: GTextProps) => {
       style={{
         color,
         fontSize: size,
-        fontFamily: weight === 'bold' ? 'Quicksand-Bold' : 'Quicksand-Light',
+        fontFamily:
+          weight === 'bold' ? 'Quicksand-SemiBold' : 'Quicksand-Medium',
         fontWeight: weight,
         ...style,
       }}
