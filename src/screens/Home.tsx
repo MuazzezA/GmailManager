@@ -90,7 +90,8 @@ const Home = () => {
             paddingVertical: 8,
           }}
           activeOpacity={0.8}
-          onPress={() => {}}>
+          // @ts-ignore
+          onPress={() => navigation.navigate(ScreenName.SETTINGS)}>
           <Setting stroke={colors.secondary} />
         </TouchableOpacity>
       ),
