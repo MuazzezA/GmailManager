@@ -39,8 +39,13 @@ const Home = () => {
     session,
     loadingIDList,
   });
-  const {searchMail, searchResult, setSearchPagination, searchPagination} =
-    useSearchMail();
+  const {
+    searchMail,
+    searchResult,
+    setSearchPagination,
+    searchPagination,
+    searchResultLoading,
+  } = useSearchMail();
 
   const onEndReachedFlatList = () => {
     if (isActiveSearch) {
@@ -134,7 +139,13 @@ const Home = () => {
           ) : null
         }
         ListEmptyComponent={
-          <EmptySearchList cancelSearchAction={cancelSearchAction} />
+          <>
+            {!(loadingMails || loadingIDList || searchResultLoading) ? (
+              <EmptySearchList cancelSearchAction={cancelSearchAction} />
+            ) : (
+              <ActivityIndicator style={styles.indicator} />
+            )}
+          </>
         }
         renderItem={({item, index}) => (
           <>
