@@ -11,11 +11,11 @@ import {clearStorage, clearUserSession, getUserData} from '../store/logic.ts';
 import GText from '../components/GText.tsx';
 import {ScrollView} from 'react-native-gesture-handler';
 import {colors} from '../constants/Theme.ts';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {useSignOutGoogle} from '../hooks/useSignOutGoogle.ts';
 
 const Settings = () => {
   const [user, setUser] = useState();
-
+  const {loading, signOut} = useSignOutGoogle();
   const userData = useCallback(async () => {
     const data = await getUserData();
     setUser(data.user);
@@ -31,11 +31,7 @@ const Settings = () => {
     clearStorage().then();
   };
 
-  const signOut = async () => {
-    await GoogleSignin.signOut();
-  };
-
-  if (!user) {
+  if (!user || loading) {
     return <ActivityIndicator style={{flex: 1}} />;
   }
 
