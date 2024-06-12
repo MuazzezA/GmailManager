@@ -39,7 +39,7 @@ const Folders = () => {
   };
 
   useEffect(() => {
-    console.log(loaded);
+    console.log('loaded : ', loaded);
     if (showAds && loaded) {
       try {
         showAd();

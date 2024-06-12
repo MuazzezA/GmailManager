@@ -1,5 +1,11 @@
 import React, {useEffect, useLayoutEffect, useMemo, useState} from 'react';
-import {FlatList, StyleSheet, SafeAreaView, View} from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  SafeAreaView,
+  View,
+  ActivityIndicator,
+} from 'react-native';
 import {colors} from '../constants/Theme.ts';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {ScreenName} from '../navigation/ScreenName.ts';
@@ -62,6 +68,10 @@ const MailList = () => {
   // todo : anlık silme kontrol edilecek
   const {deleteFromFolder} = useSaveMail();
 
+  if (loadingMails || !(mailIDList && mailIDList?.length > 0)) {
+    return <ActivityIndicator />;
+  }
+
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.folderContainer}>
@@ -94,6 +104,23 @@ const MailList = () => {
             deleteMailAction={() => deleteFromFolder(item.id, folder.id)}
           />
         )}
+        ListEmptyComponent={
+          <View
+            style={{
+              height: 200,
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+              width: '80%',
+            }}>
+            <GText
+              text={'We could not find any registered e-mails in this list.'}
+              size={16}
+              weight={'600'}
+              style={{textAlign: 'center'}}
+            />
+          </View>
+        }
       />
     </SafeAreaView>
   );
