@@ -3,7 +3,7 @@ import {MailType} from '../types/MailType.ts';
 import {getMails} from '../helpers/getMails.ts';
 
 export const useUserMails = (props: {
-  mailIDList: {id: string}[];
+  mailIDList: {id: string}[] | undefined;
   session: unknown;
   loadingIDList?: boolean;
 }) => {
@@ -22,13 +22,15 @@ export const useUserMails = (props: {
     }
     setLoading(true);
     const fetchData = async () => {
-      await getMails({
-        setLoading,
-        pagination,
-        mailIDList,
-        setMails,
-        mails,
-      });
+      if (mailIDList) {
+        await getMails({
+          setLoading,
+          pagination,
+          mailIDList,
+          setMails,
+          mails,
+        });
+      }
     };
 
     fetchData()
