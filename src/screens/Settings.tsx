@@ -11,6 +11,7 @@ import {clearStorage, clearUserSession, getUserData} from '../store/logic.ts';
 import GText from '../components/GText.tsx';
 import {ScrollView} from 'react-native-gesture-handler';
 import {colors} from '../constants/Theme.ts';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 const Settings = () => {
   const [user, setUser] = useState();
@@ -30,7 +31,9 @@ const Settings = () => {
     clearStorage().then();
   };
 
-  const signOut = () => {};
+  const signOut = async () => {
+    await GoogleSignin.signOut();
+  };
 
   if (!user) {
     return <ActivityIndicator style={{flex: 1}} />;
@@ -58,7 +61,7 @@ const Settings = () => {
             },
             {
               text: 'Delete',
-              onPress: () => signOut(),
+              onPress: () => deleteData(),
               style: 'destructive',
             },
           ]);
@@ -67,8 +70,7 @@ const Settings = () => {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          deleteData();
-          Alert.alert('Warning', 'The folders you created will be deleted.', [
+          Alert.alert('Warning', 'Sign Out', [
             {
               style: 'cancel',
               text: 'Cancel',
@@ -76,7 +78,7 @@ const Settings = () => {
             },
             {
               text: 'Delete',
-              onPress: () => deleteData(),
+              onPress: () => signOut(),
               style: 'destructive',
             },
           ]);

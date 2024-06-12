@@ -49,28 +49,31 @@ const Folders = () => {
     }
   }, [showAds, loaded]);
 
-  const renderItem = useCallback(({item}: {item: FolderType}) => {
-    return (
-      <TouchableOpacity
-        style={[styles.folderContainer, {borderColor: colors.primary}]}
-        activeOpacity={0.8}
-        onPress={() => {
-          // @ts-ignore
-          navigation.navigate(ScreenName.MAIL_LIST, {folder: item});
-        }}>
-        <View style={{gap: 8}}>
-          <GText text={item.folderName} style={styles.nameText} />
-          <GText text={item.folderSubject} style={styles.subjectText} />
-        </View>
+  const renderItem = useCallback(
+    ({item}: {item: FolderType}) => {
+      return (
         <TouchableOpacity
+          style={[styles.folderContainer, {borderColor: colors.primary}]}
           activeOpacity={0.8}
-          style={{padding: 8}}
-          onPress={() => deleteFolder(item)}>
-          <Trash width="24" height="24" />
+          onPress={() => {
+            // @ts-ignore
+            navigation.navigate(ScreenName.MAIL_LIST, {folder: item});
+          }}>
+          <View style={{gap: 8}}>
+            <GText text={item.folderName} style={styles.nameText} />
+            <GText text={item.folderSubject} style={styles.subjectText} />
+          </View>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={{padding: 8}}
+            onPress={() => deleteFolder(item)}>
+            <Trash width="24" height="24" />
+          </TouchableOpacity>
         </TouchableOpacity>
-      </TouchableOpacity>
-    );
-  }, []);
+      );
+    },
+    [folders],
+  );
 
   useLayoutEffect(() => {
     navigation.setOptions({
