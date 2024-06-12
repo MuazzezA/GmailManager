@@ -39,13 +39,14 @@ const Home = () => {
     session,
     loadingIDList,
   });
-  const {searchMail, searchResult, setSearchPagination} = useSearchMail();
+  const {searchMail, searchResult, setSearchPagination, searchPagination} =
+    useSearchMail();
 
   const onEndReachedFlatList = () => {
     if (isActiveSearch) {
       setSearchPagination({
-        start: pagination.end,
-        end: pagination.end + PER_COUNT,
+        start: searchPagination.end,
+        end: searchPagination.end + PER_COUNT,
       });
     }
     if (
