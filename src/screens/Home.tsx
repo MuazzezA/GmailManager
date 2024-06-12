@@ -39,9 +39,15 @@ const Home = () => {
     session,
     loadingIDList,
   });
-  const {searchMail, searchResult, searchResultLoading} = useSearchMail();
+  const {searchMail, searchResult, setSearchPagination} = useSearchMail();
 
   const onEndReachedFlatList = () => {
+    if (isActiveSearch) {
+      setSearchPagination({
+        start: pagination.end,
+        end: pagination.end + PER_COUNT,
+      });
+    }
     if (
       !loadingIDList &&
       mailIDList?.length > 0 &&
@@ -59,12 +65,6 @@ const Home = () => {
     (isActiveSearch && searchResult?.length > 5) ||
     (!isActiveSearch && mails?.length > 5);
 
-  const searchAction = () => {
-    searchMail(text).then(res => {
-      setIsActiveSearch(true);
-    });
-  };
-
   const cancelSearchAction = () => {
     setIsActiveSearch(false);
     setText('');
@@ -75,9 +75,8 @@ const Home = () => {
       setIsActiveSearch(false);
       setText('');
     } else {
-      searchMail(text).then(res => {
-        setIsActiveSearch(true);
-      });
+      setIsActiveSearch(true);
+      searchMail(text).then(res => {});
     }
   };
 
@@ -109,7 +108,6 @@ const Home = () => {
               setIsActiveSearch(false);
             }
             setText(value);
-            // searchMail(value).then();
           }}
           style={styles.input}
         />
@@ -121,45 +119,38 @@ const Home = () => {
          todo : filters and selectable
         <GText text={'filters'} />
       </View>*/}
-      {!session ||
-      loadingIDList ||
-      loadingMails ||
-      !mails ||
-      searchResultLoading ? (
-        <ActivityIndicator style={styles.indicator} />
-      ) : (
-        <FlatList
-          style={{marginTop: 2}}
-          contentContainerStyle={styles.flatList}
-          showsVerticalScrollIndicator={false}
-          pagingEnabled={true}
-          data={isActiveSearch ? searchResult : mails}
-          onEndReached={onEndReachedFlatList}
-          ListFooterComponent={
-            isVisibleLoader ? (
-              <ActivityIndicator style={styles.indicator} />
-            ) : null
-          }
-          ListEmptyComponent={
-            <EmptySearchList cancelSearchAction={cancelSearchAction} />
-          }
-          renderItem={({item, index}) => (
-            <>
-              {index % 9 === 0 && (
-                <BannerAds style={{marginBottom: 12}} adId={ads.HOME_BANNER} />
-              )}
-              <MailContainer
-                key={`mail-${item.id}`}
-                mail={item}
-                onPress={() =>
-                  //@ts-ignore
-                  navigation.navigate(ScreenName.DETAIL, {mail: item})
-                }
-              />
-            </>
-          )}
-        />
-      )}
+
+      <FlatList
+        style={{marginTop: 2}}
+        contentContainerStyle={styles.flatList}
+        showsVerticalScrollIndicator={false}
+        pagingEnabled={true}
+        data={isActiveSearch ? searchResult : mails}
+        onEndReached={onEndReachedFlatList}
+        ListFooterComponent={
+          isVisibleLoader ? (
+            <ActivityIndicator style={styles.indicator} />
+          ) : null
+        }
+        ListEmptyComponent={
+          <EmptySearchList cancelSearchAction={cancelSearchAction} />
+        }
+        renderItem={({item, index}) => (
+          <>
+            {index % 9 === 0 && (
+              <BannerAds style={{marginBottom: 12}} adId={ads.HOME_BANNER} />
+            )}
+            <MailContainer
+              key={`mail-${item.id}`}
+              mail={item}
+              onPress={() =>
+                //@ts-ignore
+                navigation.navigate(ScreenName.DETAIL, {mail: item})
+              }
+            />
+          </>
+        )}
+      />
     </SafeAreaView>
   );
 };

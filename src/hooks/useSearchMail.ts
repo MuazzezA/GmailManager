@@ -35,5 +35,10 @@ export const useSearchMail = () => {
       .finally(() => setLoading(false));
   };
 
-  return {searchMail, searchResult, searchResultLoading: loading};
+  return {
+    searchMail,
+    searchResult,
+    searchResultLoading: loading,
+    setSearchPagination: setPagination,
+  };
 };
