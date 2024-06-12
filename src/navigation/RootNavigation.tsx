@@ -10,6 +10,7 @@ import Settings from '../screens/Settings.tsx';
 import {colors} from '../constants/Theme.ts';
 import Detail from '../screens/Detail.tsx';
 import MailList from '../screens/MailList.tsx';
+import Support from '../screens/Support.tsx';
 
 const Stack = createStackNavigator<RootStackParamList>();
 export default function RootNavigation() {
@@ -44,6 +45,15 @@ export default function RootNavigation() {
             headerShown: true,
             headerBackTitleVisible: false,
             headerTitle: '',
+          }}
+        />
+        <Stack.Screen
+          name={ScreenName.SUPPORT}
+          component={Support}
+          options={{
+            headerShown: true,
+            headerBackTitleVisible: false,
+            headerTitle: 'Contact Us',
           }}
         />
         <Stack.Screen name={ScreenName.TABS} component={TabNavigation} />
