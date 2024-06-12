@@ -1,5 +1,5 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {StyleSheet, SafeAreaView, TouchableOpacity} from 'react-native';
+import {StyleSheet, SafeAreaView, TouchableOpacity, View} from 'react-native';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {ScreenName} from '../navigation/ScreenName.ts';
 import {getEmailSender} from '../helpers/getEmailSender.ts';
@@ -50,19 +50,20 @@ const Detail = () => {
         source={{html: getMailBody(mail)}}
         style={{flex: 1}}
       />
-      <FolderListModal
-        savedFolderId={savedFolder}
-        visible={isModalVisible}
-        setModalVisible={setModalVisible}
-        saveToFolder={folderId => addToFolder(mail.id, folderId)}
-      />
+      {isModalVisible && (
+        <FolderListModal
+          savedFolderId={savedFolder}
+          visible={isModalVisible}
+          setModalVisible={setModalVisible}
+          saveToFolder={folderId => addToFolder(mail.id, folderId)}
+        />
+      )}
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   screen: {
-    gap: 8,
     flex: 1,
   },
 });
