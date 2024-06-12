@@ -5,7 +5,7 @@ import {clearStorage, clearUserSession} from '../store/logic.ts';
 export const useSignOutGoogle = () => {
   const [loading, setLoading] = useState(false);
 
-  const signIn = async () => {
+  const signOut = async () => {
     setLoading(true);
     try {
       await GoogleSignin.signOut();
@@ -18,5 +18,5 @@ export const useSignOutGoogle = () => {
     }
   };
 
-  return {loading, signIn};
+  return {loading, signOut};
 };
