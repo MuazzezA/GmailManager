@@ -40,5 +40,6 @@ export const useSearchMail = () => {
     searchResult,
     searchResultLoading: loading,
     setSearchPagination: setPagination,
+    searchPagination: pagination,
   };
 };
