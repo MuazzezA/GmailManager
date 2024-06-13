@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef} from 'react';
 import {
   Dimensions,
   FlatList,
@@ -14,6 +14,7 @@ import GText from './GText.tsx';
 import {EmptyList} from './EmptyList.tsx';
 import {useNavigation} from '@react-navigation/native';
 import {colors} from '../constants/Theme.ts';
+import {FolderType} from '../types/FolderType.ts';
 const {height} = Dimensions.get('window');
 const MODAL_HEIGHT = height / 2;
 export const FolderListModal = ({
@@ -27,9 +28,7 @@ export const FolderListModal = ({
   saveToFolder: (folderId: number) => void;
   savedFolderId: number[];
 }) => {
-  const {folders} = useAppStore(state => ({
-    folders: state.folders,
-  }));
+  const folders = useAppStore.getState().folders;
 
   const navigation = useNavigation();
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -50,6 +49,33 @@ export const FolderListModal = ({
     }
   }, [visible]);
 
+  const renderItem = useCallback(
+    ({item}: {item: FolderType}) => {
+      return (
+        <TouchableOpacity
+          style={styles.item}
+          activeOpacity={0.7}
+          onPress={() => saveToFolder?.(item.id)}>
+          <View
+            style={[
+              styles.dot,
+              {
+                backgroundColor: savedFolderId.includes(item.id)
+                  ? colors.primary
+                  : colors.background,
+                borderColor: savedFolderId.includes(item.id)
+                  ? colors.primary
+                  : colors.text,
+              },
+            ]}
+          />
+          <GText style={styles.itemText} text={item.folderName} />
+        </TouchableOpacity>
+      );
+    },
+    [savedFolderId],
+  );
+
   return (
     <>
       <Animated.View
@@ -65,33 +91,7 @@ export const FolderListModal = ({
               <View style={styles.modalContainer}>
                 <FlatList
                   data={folders}
-                  renderItem={({item, index}) => {
-                    const contains = useMemo(
-                      () => savedFolderId.includes(item.id),
-                      [savedFolderId, item.id],
-                    );
-                    return (
-                      <TouchableOpacity
-                        style={styles.item}
-                        activeOpacity={0.7}
-                        onPress={() => saveToFolder?.(item.id)}>
-                        <View
-                          style={[
-                            styles.dot,
-                            {
-                              backgroundColor: contains
-                                ? colors.primary
-                                : colors.background,
-                              borderColor: contains
-                                ? colors.primary
-                                : colors.text,
-                            },
-                          ]}
-                        />
-                        <GText style={styles.itemText} text={item.folderName} />
-                      </TouchableOpacity>
-                    );
-                  }}
+                  renderItem={item => renderItem(item)}
                   ListEmptyComponent={
                     <EmptyList
                       showModal={() => {

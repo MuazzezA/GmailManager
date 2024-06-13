@@ -12,8 +12,11 @@ import GText from '../components/GText.tsx';
 import {ScrollView} from 'react-native-gesture-handler';
 import {colors} from '../constants/Theme.ts';
 import {useSignOutGoogle} from '../hooks/useSignOutGoogle.ts';
+import {useNavigation} from '@react-navigation/native';
+import {ScreenName} from '../navigation/ScreenName.ts';
 
 const Settings = () => {
+  const navigation = useNavigation();
   const [user, setUser] = useState();
   const {loading, signOut} = useSignOutGoogle();
   const userData = useCallback(async () => {
@@ -83,11 +86,17 @@ const Settings = () => {
         style={[styles.button, {backgroundColor: colors.primary}]}
         activeOpacity={0.8}>
         <GText
-          text={'Sing Out'}
+          text={'Sign Out'}
           size={16}
           style={styles.text}
           color={'white'}
         />
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate(ScreenName.SUPPORT)}
+        style={[styles.button, {marginTop: 52}]}
+        activeOpacity={0.8}>
+        <GText text={'Contact Us'} size={16} style={styles.text} />
       </TouchableOpacity>
     </ScrollView>
   );
