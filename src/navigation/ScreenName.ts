@@ -9,6 +9,7 @@ export enum ScreenName {
   SETTINGS = 'settings',
   DETAIL = 'detail',
   MAIL_LIST = 'mailList',
+  SUPPORT = 'support',
 }
 
 export type RootStackParamList = {
@@ -20,4 +21,5 @@ export type RootStackParamList = {
   [ScreenName.SETTINGS]: undefined;
   [ScreenName.DETAIL]: {mail: string};
   [ScreenName.MAIL_LIST]: {folder: FolderType};
+  [ScreenName.SUPPORT]: undefined;
 };

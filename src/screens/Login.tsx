@@ -42,7 +42,7 @@ const Login = ({navigation}) => {
       />
       <GText
         size={14}
-        text={'Sing In With Google'}
+        text={'Sign In With Google'}
         weight={'600'}
         color={colors.text}
         style={{

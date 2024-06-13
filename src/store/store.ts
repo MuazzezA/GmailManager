@@ -8,9 +8,9 @@ import {createWithEqualityFn} from 'zustand/traditional';
 type AppStateType = {
   folders: FolderType[] | null;
   setFolders: (data: FolderType[]) => void;
-  savedMails:MailType[] | null;
-  setSavedMails: (data: MailType[]) => void;
-  };
+  savedMails: SavedMailType[] | null;
+  setSavedMails: (data: SavedMailType[]) => void;
+};
 
 const appStateSlice: StateCreator<
   AppStateType,
