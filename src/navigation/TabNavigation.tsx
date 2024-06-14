@@ -15,13 +15,14 @@ export default function TabNavigation() {
         headerShown: true,
         headerStyle: {
           backgroundColor: colors.text,
-          borderRadius: 4,
+          borderBottomStartRadius: 8,
+          borderBottomEndRadius: 8,
         },
         headerTintColor: colors.background,
         tabBarStyle: {
           position: 'absolute',
           backgroundColor: colors.text,
-          borderTopWidth: 4,
+          borderTopWidth: 1,
           borderTopColor: colors.primary,
           borderTopStartRadius: 8,
           borderTopEndRadius: 8,
