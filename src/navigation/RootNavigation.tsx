@@ -28,7 +28,14 @@ export default function RootNavigation() {
           options={{headerShown: false}}
         />
         <Stack.Screen name={ScreenName.LOGIN} component={Login} />
-        <Stack.Screen name={ScreenName.SETTINGS} component={Settings} />
+        <Stack.Screen
+          name={ScreenName.SETTINGS}
+          component={Settings}
+          options={{
+            headerShown: true,
+            headerTitle: 'Setting',
+          }}
+        />
         <Stack.Screen
           name={ScreenName.DETAIL}
           component={Detail}

@@ -92,7 +92,6 @@ const Settings = () => {
           color={'white'}
         />
       </TouchableOpacity>
-
       <TouchableOpacity
         onPress={() => navigation.navigate(ScreenName.SUPPORT)}
         style={[styles.button, {marginTop: 52}]}
