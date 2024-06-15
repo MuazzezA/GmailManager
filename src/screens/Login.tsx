@@ -1,5 +1,11 @@
 import React, {useEffect} from 'react';
-import {Dimensions, Image, StyleSheet, View} from 'react-native';
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
 import {useSignInGoogle} from '../hooks/useSignInGoogle.ts';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -52,7 +58,14 @@ const Login = ({navigation}) => {
       <View style={styles.shadow}>
         <GoogleSigninButton onPress={signIn} disabled={loading} />
       </View>
-      <View></View>
+      <TouchableOpacity
+        onPress={() => navigation.navigate(ScreenName.PRIVACY)}
+        style={styles.privacy}>
+        <GText
+          text={'Click to read the Privacy Policy.'}
+          style={styles.underline}
+        />
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -83,5 +96,10 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 8,
   },
+  privacy: {
+    position: 'absolute',
+    bottom: height * 0.1,
+  },
+  underline: {textDecorationLine: 'underline'},
 });
 export default Login;

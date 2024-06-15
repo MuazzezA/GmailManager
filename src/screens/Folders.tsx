@@ -13,6 +13,7 @@ import {ScreenName} from '../navigation/ScreenName.ts';
 import {BannerAds} from '../components/BannerAds.tsx';
 import useInterstitialAd from '../hooks/useInterstitialAd.ts';
 import ads from '../constants/Ads.ts';
+import {FolderListItem} from '../components/FolderListItem.tsx';
 
 const Folders = () => {
   const navigation = useNavigation();
@@ -49,32 +50,6 @@ const Folders = () => {
     }
   }, [showAds, loaded]);
 
-  const renderItem = useCallback(
-    ({item}: {item: FolderType}) => {
-      return (
-        <TouchableOpacity
-          style={[styles.folderContainer, {borderColor: colors.primary}]}
-          activeOpacity={0.8}
-          onPress={() => {
-            // @ts-ignore
-            navigation.navigate(ScreenName.MAIL_LIST, {folder: item});
-          }}>
-          <View style={{gap: 8}}>
-            <GText text={item.folderName} style={styles.nameText} />
-            <GText text={item.folderSubject} style={styles.subjectText} />
-          </View>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={{padding: 8}}
-            onPress={() => deleteFolder(item)}>
-            <Trash width="24" height="24" />
-          </TouchableOpacity>
-        </TouchableOpacity>
-      );
-    },
-    [folders],
-  );
-
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -97,7 +72,7 @@ const Folders = () => {
             {index % 4 === 0 && (
               <BannerAds style={{marginBottom: 12}} adId={ads.FOLDER_BANNER} />
             )}
-            {renderItem({item})}
+            <FolderListItem item={item} deleteFolder={deleteFolder} />
           </>
         )}
         ListEmptyComponent={<EmptyList showModal={showModal} />}
@@ -122,21 +97,5 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   list: {flexGrow: 1, paddingTop: 12, gap: 12},
-  folderContainer: {
-    backgroundColor: colors.secondary,
-    padding: 8,
-    borderRadius: 4,
-    marginHorizontal: 8,
-    borderLeftWidth: 4,
-    gap: 8,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  nameText: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  subjectText: {},
 });
 export default Folders;
