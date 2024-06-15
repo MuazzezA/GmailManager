@@ -1,5 +1,4 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {RootStackParamList, ScreenName} from './ScreenName.ts';
 import {createStackNavigator} from '@react-navigation/stack';
