@@ -33,14 +33,6 @@ export default function RootNavigation() {
         />
         <Stack.Screen name={ScreenName.LOGIN} component={Login} />
         <Stack.Screen
-          name={ScreenName.SETTINGS}
-          component={Settings}
-          options={{
-            headerShown: true,
-            headerTitle: 'Setting',
-          }}
-        />
-        <Stack.Screen
           name={ScreenName.DETAIL}
           component={Detail}
           options={{
@@ -61,16 +53,27 @@ export default function RootNavigation() {
 
         <Stack.Group
           screenOptions={{
-            cardStyleInterpolator:
-              CardStyleInterpolators.forFadeFromBottomAndroid,
+            // cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
+            presentation: 'transparentModal',
           }}>
           <Stack.Screen
             name={ScreenName.SUPPORT}
             component={Support}
             options={{
               headerShown: true,
-              headerBackTitleVisible: false,
+              headerBackTitleVisible: true,
               headerTitle: 'Contact Us',
+              headerBackTitle: 'Back',
+            }}
+          />
+          <Stack.Screen
+            name={ScreenName.SETTINGS}
+            component={Settings}
+            options={{
+              headerShown: true,
+              headerBackTitleVisible: true,
+              headerTitle: 'Settings',
+              headerBackTitle: 'Back',
             }}
           />
           <Stack.Screen
