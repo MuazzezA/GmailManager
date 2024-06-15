@@ -2,7 +2,10 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {RootStackParamList, ScreenName} from './ScreenName.ts';
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from '@react-navigation/stack';
 import Splash from '../screens/Splash.tsx';
 import TabNavigation from './TabNavigation.tsx';
 import Login from '../screens/Login.tsx';
@@ -11,6 +14,7 @@ import {colors} from '../constants/Theme.ts';
 import Detail from '../screens/Detail.tsx';
 import MailList from '../screens/MailList.tsx';
 import Support from '../screens/Support.tsx';
+import Privacy from '../screens/Privacy.tsx';
 
 const Stack = createStackNavigator<RootStackParamList>();
 export default function RootNavigation() {
@@ -54,15 +58,31 @@ export default function RootNavigation() {
             headerTitle: '',
           }}
         />
-        <Stack.Screen
-          name={ScreenName.SUPPORT}
-          component={Support}
-          options={{
-            headerShown: true,
-            headerBackTitleVisible: false,
-            headerTitle: 'Contact Us',
-          }}
-        />
+
+        <Stack.Group
+          screenOptions={{
+            cardStyleInterpolator:
+              CardStyleInterpolators.forFadeFromBottomAndroid,
+          }}>
+          <Stack.Screen
+            name={ScreenName.SUPPORT}
+            component={Support}
+            options={{
+              headerShown: true,
+              headerBackTitleVisible: false,
+              headerTitle: 'Contact Us',
+            }}
+          />
+          <Stack.Screen
+            name={ScreenName.PRIVACY}
+            component={Privacy}
+            options={{
+              headerShown: true,
+              headerBackTitleVisible: false,
+              headerTitle: 'PRIVACY',
+            }}
+          />
+        </Stack.Group>
         <Stack.Screen name={ScreenName.TABS} component={TabNavigation} />
       </Stack.Navigator>
     </NavigationContainer>
