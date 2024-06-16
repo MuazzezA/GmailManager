@@ -49,7 +49,6 @@ const MailList = () => {
     }
     getUserSession()
       .then(res => {
-        //@ts-ignore
         setSession(res);
       })
       .catch(() => {});
@@ -96,10 +95,7 @@ const MailList = () => {
           <MailContainer
             key={`mail-${item.id}`}
             mail={item}
-            onPress={() =>
-              //@ts-ignore
-              navigation.navigate(ScreenName.DETAIL, {mail: item})
-            }
+            onPress={() => navigation.navigate(ScreenName.DETAIL, {mail: item})}
             isDeleteActive={true}
             deleteMailAction={() => deleteFromFolder(item.id, folder.id)}
           />
