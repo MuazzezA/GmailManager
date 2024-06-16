@@ -42,7 +42,7 @@ export const FolderListItem = ({
   return (
     <>
       {data.index % 4 === 0 && (
-        <BannerAds style={{marginBottom: 12}} adId={ads.FOLDER_BANNER} />
+        <BannerAds style={styles.ads} adId={ads.FOLDER_BANNER} />
       )}
       {folderItem()}
     </>
@@ -69,4 +69,5 @@ const styles = StyleSheet.create({
   subjectText: {},
   gap: {gap: 8},
   trash: {padding: 8},
+  ads: {marginBottom: 12},
 });

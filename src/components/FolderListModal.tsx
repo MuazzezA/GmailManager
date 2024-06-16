@@ -86,7 +86,7 @@ export const FolderListModal = ({
         visible={visible}
         onRequestClose={() => setModalVisible(false)}>
         <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
-          <View style={{flex: 1, justifyContent: 'flex-end'}}>
+          <View style={styles.insideContainer}>
             <TouchableWithoutFeedback>
               <View style={styles.modalContainer}>
                 <FlatList
@@ -99,9 +99,7 @@ export const FolderListModal = ({
                         // @ts-ignore
                         navigation.navigate('folders');
                       }}
-                      style={{
-                        height: MODAL_HEIGHT * 0.6,
-                      }}
+                      style={styles.empty}
                     />
                   }
                 />
@@ -152,5 +150,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 2,
     marginTop: 4,
+  },
+  insideContainer: {flex: 1, justifyContent: 'flex-end'},
+  empty: {
+    height: MODAL_HEIGHT * 0.6,
   },
 });

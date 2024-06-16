@@ -41,19 +41,14 @@ const Login = ({navigation}) => {
         }
         weight={'500'}
         color={colors.text}
-        style={{
-          textAlign: 'center',
-          padding: width * 0.1,
-        }}
+        style={styles.info}
       />
       <GText
         size={14}
         text={'Sign In With Google'}
         weight={'600'}
         color={colors.text}
-        style={{
-          textAlign: 'center',
-        }}
+        style={styles.text}
       />
       <View style={styles.shadow}>
         <GoogleSigninButton onPress={signIn} disabled={loading} />
@@ -101,5 +96,12 @@ const styles = StyleSheet.create({
     bottom: height * 0.1,
   },
   underline: {textDecorationLine: 'underline'},
+  info: {
+    textAlign: 'center',
+    padding: width * 0.1,
+  },
+  text: {
+    textAlign: 'center',
+  },
 });
 export default Login;
