@@ -17,22 +17,23 @@ import {FolderListItem} from '../components/FolderListItem.tsx';
 
 const Folders = () => {
   const navigation = useNavigation();
-  const [folderName, setFolderName] = React.useState('');
-  const [folderSubject, setFolderSubject] = React.useState('');
   const [visible, setVisible] = React.useState(false);
   const {loaded, showAd} = useInterstitialAd({adId: ads.AFTER_FOLDER_FULL!});
-
   const {createFolder, deleteFolder, folders} = useFolders();
   const [showAds, setShowAds] = useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-  const createFolderItem = () => {
+  const createFolderItem = ({
+    folderName,
+    folderSubject,
+  }: {
+    folderSubject: string;
+    folderName: string;
+  }) => {
     createFolder({
       folderName: folderName,
       folderSubject: folderSubject,
       createAfter: () => {
-        setFolderName('');
-        setFolderSubject('');
         hideModal();
         setShowAds(true);
       },
@@ -67,24 +68,15 @@ const Folders = () => {
     <View style={styles.safe}>
       <FlatList
         data={folders}
-        renderItem={({item, index}) => (
-          <>
-            {index % 4 === 0 && (
-              <BannerAds style={{marginBottom: 12}} adId={ads.FOLDER_BANNER} />
-            )}
-            <FolderListItem item={item} deleteFolder={deleteFolder} />
-          </>
+        renderItem={data => (
+          <FolderListItem data={data} deleteFolder={deleteFolder} />
         )}
         ListEmptyComponent={<EmptyList showModal={showModal} />}
         contentContainerStyle={styles.list}
       />
       <CreateFolderModal
         doneButtonPress={createFolderItem}
-        folderName={folderName}
-        folderSubject={folderSubject}
         hideModal={hideModal}
-        setFolderName={setFolderName}
-        setFolderSubject={setFolderSubject}
         visible={visible}
       />
     </View>
