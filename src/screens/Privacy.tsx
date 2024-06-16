@@ -1,13 +1,13 @@
 import React from 'react';
 import GText from '../components/GText.tsx';
-import PrivacyPolicy from '../constants/PrivacyPolicy.js';
+import {privacyPolicy} from '../constants/PrivacyPolicy.js';
 import {ScrollView} from 'react-native-gesture-handler';
 import {StyleSheet} from 'react-native';
 
 const Privacy = () => {
   return (
     <ScrollView contentContainerStyle={styles.scroll}>
-      <GText text={PrivacyPolicy} size={16} />
+      <GText text={privacyPolicy} size={16} />
     </ScrollView>
   );
 };

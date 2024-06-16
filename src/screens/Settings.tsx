@@ -14,24 +14,25 @@ import {colors} from '../constants/Theme.ts';
 import {useSignOutGoogle} from '../hooks/useSignOutGoogle.ts';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenName} from '../navigation/ScreenName.ts';
+import {User} from '../types/User.ts';
 
 const Settings = () => {
   const navigation = useNavigation();
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<User | null | undefined>();
   const {loading, signOut} = useSignOutGoogle();
+
   const userData = useCallback(async () => {
     const data = await getUserData();
-    setUser(data.user);
-    console.log(data.user);
+    setUser(data?.user);
   }, []);
 
   useEffect(() => {
-    userData().then();
+    userData().then().catch();
   }, []);
 
   const deleteData = () => {
-    clearUserSession().then();
-    clearStorage().then();
+    clearUserSession().then().catch();
+    clearStorage().then().catch();
   };
 
   if (!user || loading) {
@@ -97,6 +98,12 @@ const Settings = () => {
         style={[styles.button, {marginTop: 52}]}
         activeOpacity={0.8}>
         <GText text={'Contact Us'} size={16} style={styles.text} />
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate(ScreenName.PRIVACY)}
+        style={styles.button}
+        activeOpacity={0.8}>
+        <GText text={'Privacy Policy'} size={16} style={styles.text} />
       </TouchableOpacity>
     </ScrollView>
   );

@@ -1,4 +1,4 @@
-export default `Privacy Policy for GmailManager
+export const privacyPolicy = `Privacy Policy for GmailManager
 Privacy Policy
 
 Last updated: June 09, 2024
