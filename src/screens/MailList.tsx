@@ -101,19 +101,12 @@ const MailList = () => {
           />
         )}
         ListEmptyComponent={
-          <View
-            style={{
-              height: 200,
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignSelf: 'center',
-              width: '80%',
-            }}>
+          <View style={styles.empty}>
             <GText
               text={'We could not find any registered e-mails in this list.'}
               size={16}
               weight={'600'}
-              style={{textAlign: 'center'}}
+              style={styles.text}
             />
           </View>
         }
@@ -135,5 +128,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     gap: 6,
   },
+  empty: {
+    height: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    width: '80%',
+  },
+  text: {textAlign: 'center'},
 });
 export default MailList;

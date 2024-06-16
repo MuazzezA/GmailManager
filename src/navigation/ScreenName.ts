@@ -25,3 +25,18 @@ export type RootStackParamList = {
   [ScreenName.SUPPORT]: undefined;
   [ScreenName.PRIVACY]: undefined;
 };
+
+/*
+export type RootStackParamList = {
+  SPLASH: undefined;
+  TABS: undefined;
+  HOME: undefined;
+  LOGIN: undefined;
+  FOLDERS: undefined;
+  SETTINGS: undefined;
+  DETAIL: {mail: string};
+  MAIL_LIST: {folder: FolderType};
+  SUPPORT: undefined;
+  PRIVACY: undefined;
+};
+*/

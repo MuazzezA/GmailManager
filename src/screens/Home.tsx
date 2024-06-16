@@ -122,7 +122,6 @@ const Home = () => {
       </View>*/}
 
       <FlatList
-        style={{marginTop: 2}}
         contentContainerStyle={styles.flatList}
         showsVerticalScrollIndicator={false}
         pagingEnabled={true}

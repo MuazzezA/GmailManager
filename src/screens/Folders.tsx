@@ -55,7 +55,7 @@ const Folders = () => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
-          style={{padding: 6}}
+          style={styles.padding}
           activeOpacity={0.8}
           onPress={showModal}>
           <Plus stroke={colors.secondary} />
@@ -89,5 +89,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   list: {flexGrow: 1, paddingTop: 12, gap: 12},
+  padding: {padding: 6},
 });
 export default Folders;

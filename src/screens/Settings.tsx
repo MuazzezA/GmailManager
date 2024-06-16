@@ -36,13 +36,13 @@ const Settings = () => {
   };
 
   if (!user || loading) {
-    return <ActivityIndicator style={{flex: 1}} />;
+    return <ActivityIndicator style={styles.screen} />;
   }
 
   return (
     <ScrollView contentContainerStyle={styles.screen}>
       <View style={styles.row}>
-        <View style={{gap: 4}}>
+        <View style={styles.gap}>
           <GText text={user?.email} size={18} style={styles.text} />
           <GText text={user?.name} size={16} />
         </View>
@@ -136,5 +136,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.secondary,
     borderRadius: 8,
   },
+  gap: {gap: 4},
 });
 export default Settings;
