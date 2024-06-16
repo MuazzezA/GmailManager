@@ -2,8 +2,10 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Image,
   StyleSheet,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import {clearStorage, clearUserSession, getUserData} from '../store/logic.ts';
 import GText from '../components/GText.tsx';
@@ -77,13 +79,13 @@ const Settings = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.screen}>
-      {/*<View style={styles.row}>
+      <View style={styles.row}>
         <View style={styles.gap}>
           <GText text={user?.email} size={18} style={styles.text} />
           <GText text={user?.name} size={16} />
         </View>
         <Image source={{uri: user?.photo}} style={styles.image} />
-      </View>*/}
+      </View>
 
       <TouchableOpacity
         style={styles.button}
