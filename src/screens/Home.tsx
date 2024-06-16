@@ -90,7 +90,6 @@ const Home = () => {
         <TouchableOpacity
           style={styles.setting}
           activeOpacity={0.8}
-          // @ts-ignore
           onPress={() => navigation.navigate(ScreenName.SETTINGS)}>
           <Setting stroke={colors.secondary} />
         </TouchableOpacity>
@@ -129,7 +128,7 @@ const Home = () => {
         pagingEnabled={true}
         data={isActiveSearch ? searchResult : mails}
         onEndReached={onEndReachedFlatList}
-        renderItem={MailItem}
+        renderItem={data => <MailItem item={data.item} index={data.index} />}
         ListFooterComponent={
           isVisibleLoader ? (
             <ActivityIndicator style={styles.indicator} />
