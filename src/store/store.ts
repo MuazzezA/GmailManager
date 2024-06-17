@@ -24,7 +24,7 @@ const appStateSlice: StateCreator<
 
 export const useAppStore = createWithEqualityFn<AppStateType>()(
   persist(appStateSlice, {
-    name: 'forest-storage',
+    name: 'app-storage',
     storage: createJSONStorage(() => AsyncStorage),
   }),
 );

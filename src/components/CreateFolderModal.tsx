@@ -16,20 +16,15 @@ const {width, height} = Dimensions.get('window');
 export const CreateFolderModal = ({
   visible,
   hideModal,
-  folderName,
-  setFolderName,
-  folderSubject,
-  setFolderSubject,
   doneButtonPress,
 }: {
   visible: boolean;
   hideModal: () => void;
-  folderName: string;
-  setFolderName: React.Dispatch<React.SetStateAction<string>>;
-  folderSubject: string;
-  setFolderSubject: React.Dispatch<React.SetStateAction<string>>;
-  doneButtonPress: () => void;
+  doneButtonPress: (p: {folderSubject: string; folderName: string}) => void;
 }) => {
+  const [folderName, setFolderName] = React.useState('');
+  const [folderSubject, setFolderSubject] = React.useState('');
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -61,9 +56,11 @@ export const CreateFolderModal = ({
                     style={styles.input2}
                   />
                   <Button
-                    style={{right: 8, position: 'absolute', bottom: 12}}
-                    onPress={() => doneButtonPress()}>
-                    OK
+                    style={styles.doneButton}
+                    onPress={() =>
+                      doneButtonPress({folderName, folderSubject})
+                    }>
+                    DONE
                   </Button>
                 </View>
               </TouchableWithoutFeedback>
@@ -90,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     padding: 20,
     width: width * 0.9,
-    height: height * 0.35,
+    height: height * 0.4,
     justifyContent: 'flex-start',
     alignItems: 'center',
     borderRadius: 10,
@@ -109,5 +106,11 @@ const styles = StyleSheet.create({
     width: '100%',
     marginVertical: 10,
     backgroundColor: colors.background,
+  },
+  doneButton: {
+    right: 8,
+    bottom: 12,
+    marginTop: height * 0.1,
+    alignSelf: 'flex-end',
   },
 });

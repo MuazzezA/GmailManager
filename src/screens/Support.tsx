@@ -48,9 +48,7 @@ const Support = () => {
         }
         weight={'500'}
         color={colors.text}
-        style={{
-          padding: 12,
-        }}
+        style={styles.padding}
       />
       <TextInput
         numberOfLines={2}
@@ -116,6 +114,9 @@ const styles = StyleSheet.create({
     padding: 12,
     paddingTop: 12,
     borderRadius: 8,
+  },
+  padding: {
+    padding: 12,
   },
 });
 export default Support;

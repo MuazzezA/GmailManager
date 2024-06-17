@@ -32,7 +32,7 @@ const Detail = () => {
       headerTitle: title,
       headerRight: () => (
         <TouchableOpacity
-          style={{padding: 6}}
+          style={styles.padding}
           activeOpacity={0.8}
           onPress={openFolderList}>
           <Plus />
@@ -48,7 +48,7 @@ const Detail = () => {
         originWhitelist={['*']}
         bounces={false}
         source={{html: getMailBody(mail)}}
-        style={{flex: 1}}
+        style={styles.flex}
       />
       {isModalVisible && (
         <FolderListModal
@@ -66,5 +66,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
   },
+  padding: {padding: 6},
+  flex: {flex: 1},
 });
 export default Detail;

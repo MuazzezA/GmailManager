@@ -1,5 +1,11 @@
 import React, {useEffect} from 'react';
-import {Dimensions, Image, StyleSheet, View} from 'react-native';
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
 import {useSignInGoogle} from '../hooks/useSignInGoogle.ts';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -35,24 +41,26 @@ const Login = ({navigation}) => {
         }
         weight={'500'}
         color={colors.text}
-        style={{
-          textAlign: 'center',
-          padding: width * 0.1,
-        }}
+        style={styles.info}
       />
       <GText
         size={14}
         text={'Sign In With Google'}
         weight={'600'}
         color={colors.text}
-        style={{
-          textAlign: 'center',
-        }}
+        style={styles.text}
       />
       <View style={styles.shadow}>
         <GoogleSigninButton onPress={signIn} disabled={loading} />
       </View>
-      <View></View>
+      <TouchableOpacity
+        onPress={() => navigation.navigate(ScreenName.PRIVACY)}
+        style={styles.privacy}>
+        <GText
+          text={'Click to read the Privacy Policy.'}
+          style={styles.underline}
+        />
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -82,6 +90,18 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4.65,
     elevation: 8,
+  },
+  privacy: {
+    position: 'absolute',
+    bottom: height * 0.1,
+  },
+  underline: {textDecorationLine: 'underline'},
+  info: {
+    textAlign: 'center',
+    padding: width * 0.1,
+  },
+  text: {
+    textAlign: 'center',
   },
 });
 export default Login;
