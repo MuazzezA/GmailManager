@@ -17,7 +17,6 @@ export const useGetPrepareMail = () => {
 
     getUserSession()
       .then(res => {
-        //@ts-ignore
         setSession(res);
       })
       .catch(() => {});

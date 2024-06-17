@@ -11,16 +11,14 @@ import {TextInput} from 'react-native-paper';
 import {colors} from '../constants/Theme.ts';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenName} from '../navigation/ScreenName.ts';
-import {MailContainer} from '../components/MailContainer.tsx';
 import {useGetPrepareMail} from '../hooks/useGetPrepareMail.ts';
 import {useUserMails} from '../hooks/useUserMails.ts';
 import {useSearchMail} from '../hooks/useSearchMail.ts';
 import SearchIcon from '../assets/icons/search.svg';
 import CloseIcon from '../assets/icons/close.svg';
 import {EmptySearchList} from '../components/EmptySearchList.tsx';
-import {BannerAds} from '../components/BannerAds.tsx';
 import Setting from '../assets/icons/setting.svg';
-import ads from '../constants/Ads.ts';
+import {MailItem} from '../components/MailItem.tsx';
 const PER_COUNT = 30;
 
 const Home = () => {
@@ -90,12 +88,8 @@ const Home = () => {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity
-          style={{
-            paddingHorizontal: 12,
-            paddingVertical: 8,
-          }}
+          style={styles.setting}
           activeOpacity={0.8}
-          // @ts-ignore
           onPress={() => navigation.navigate(ScreenName.SETTINGS)}>
           <Setting stroke={colors.secondary} />
         </TouchableOpacity>
@@ -128,12 +122,12 @@ const Home = () => {
       </View>*/}
 
       <FlatList
-        style={{marginTop: 2}}
         contentContainerStyle={styles.flatList}
         showsVerticalScrollIndicator={false}
         pagingEnabled={true}
         data={isActiveSearch ? searchResult : mails}
         onEndReached={onEndReachedFlatList}
+        renderItem={data => <MailItem item={data.item} index={data.index} />}
         ListFooterComponent={
           isVisibleLoader ? (
             <ActivityIndicator style={styles.indicator} />
@@ -148,21 +142,6 @@ const Home = () => {
             )}
           </>
         }
-        renderItem={({item, index}) => (
-          <>
-            {index % 9 === 0 && (
-              <BannerAds style={{marginBottom: 12}} adId={ads.HOME_BANNER} />
-            )}
-            <MailContainer
-              key={`mail-${item.id}`}
-              mail={item}
-              onPress={() =>
-                //@ts-ignore
-                navigation.navigate(ScreenName.DETAIL, {mail: item})
-              }
-            />
-          </>
-        )}
       />
     </SafeAreaView>
   );
@@ -195,6 +174,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
+  },
+  setting: {
+    paddingHorizontal: 12,
+    paddingVertical: 8,
   },
 });
 export default Home;
