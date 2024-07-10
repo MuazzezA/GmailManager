@@ -12,16 +12,19 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScreenName} from '../navigation/ScreenName.ts';
 import GText from '../components/GText.tsx';
 import {colors} from '../constants/Theme.ts';
+import SplashScreen from 'react-native-splash-screen';
 
 const {width, height} = Dimensions.get('window');
 // @ts-ignore
 const Login = ({navigation}) => {
   const {signIn, loading, isSuccess} = useSignInGoogle();
   useEffect(() => {
+    SplashScreen.hide();
     if (isSuccess) {
       navigation.replace(ScreenName.TABS);
     }
   }, [isSuccess, navigation]);
+
   return (
     <SafeAreaView style={styles.screen}>
       <Image

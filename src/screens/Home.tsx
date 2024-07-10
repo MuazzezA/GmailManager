@@ -1,4 +1,4 @@
-import React, {useLayoutEffect} from 'react';
+import React, {useEffect, useLayoutEffect} from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -19,9 +19,14 @@ import CloseIcon from '../assets/icons/close.svg';
 import {EmptySearchList} from '../components/EmptySearchList.tsx';
 import Setting from '../assets/icons/setting.svg';
 import {MailItem} from '../components/MailItem.tsx';
+import SplashScreen from 'react-native-splash-screen';
 const PER_COUNT = 30;
 
 const Home = () => {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
   const navigation = useNavigation();
   const [text, setText] = React.useState('');
   const [isActiveSearch, setIsActiveSearch] = React.useState(false);
