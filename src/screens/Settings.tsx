@@ -85,7 +85,7 @@ const Settings = () => {
           <GText text={user?.email} size={18} style={styles.text} />
           <GText text={user?.name} size={16} />
         </View>
-        {!user?.photo ? (
+        {user?.photo ? (
           <Image source={{uri: user?.photo}} style={styles.image} />
         ) : (
           <View style={styles.noImage}>
