@@ -16,6 +16,10 @@ export const getMails = async ({
   setMails: React.Dispatch<React.SetStateAction<MailType[]>>;
 }) => {
   try {
+    const newMails = mails.filter(mail =>
+      mailIDList.some(item => item.id.toString() === mail.id.toString()),
+    );
+
     for (
       let i = pagination.start;
       i < Math.min(pagination.end, mailIDList.length);
@@ -23,23 +27,20 @@ export const getMails = async ({
     ) {
       const item = mailIDList[i];
 
-      if (
-        !mails
-          .filter(m => !!m.id)
-          .find(mail => mail.id.toString() === item.id.toString())
-      ) {
+      if (!newMails.some(mail => mail.id.toString() === item.id.toString())) {
         try {
           const response = await getMailItem(item.id);
-          setMails(prevData => [...prevData, response]);
+          newMails.push(response);
         } catch (error) {
           console.error('Error fetching data:', error);
         }
       }
     }
 
-    //setMails(prevData => [...prevData, ...newMails]);
+    setMails(newMails);
     setLoading(false);
   } catch (error) {
+    console.error('Error in getMails:', error);
     setLoading(false);
   }
 };

@@ -55,7 +55,10 @@ export const FolderListModal = ({
         <TouchableOpacity
           style={styles.item}
           activeOpacity={0.7}
-          onPress={() => saveToFolder?.(item.id)}>
+          onPress={() => {
+            saveToFolder?.(item.id);
+            setModalVisible(false);
+          }}>
           <View
             style={[
               styles.dot,
