@@ -44,7 +44,7 @@ export const MailContainer = (props: MailBoxProps) => {
           <GText
             numberOfLines={1}
             text={he.decode(sender)}
-            size={18}
+            size={16}
             weight={'700'}
           />
           <GText
@@ -55,7 +55,7 @@ export const MailContainer = (props: MailBoxProps) => {
           />
           <GText
             numberOfLines={2}
-            size={14}
+            size={12}
             weight={'300'}
             text={he.decode(mail.snippet ?? '')}
             style={styles.snippetText}
@@ -82,10 +82,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   box: {
-    gap: 4,
+    gap: 2,
   },
   snippetText: {
-    marginTop: 8,
+    marginTop: 6,
     textAlignVertical: 'top',
     textAlign: 'left',
   },
