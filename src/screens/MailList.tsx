@@ -31,7 +31,7 @@ const MailList = () => {
     }
     const savedFolder = savedMails.find(saved => saved?.id === folder?.id);
     return savedFolder?.mails;
-  }, []);
+  }, [savedMails, folder]);
 
   useLayoutEffect(() => {
     const title =
@@ -64,10 +64,9 @@ const MailList = () => {
     session,
   });
 
-  // todo : anlık silme kontrol edilecek
   const {deleteFromFolder} = useSaveMail();
 
-  if (loadingMails || !(mailIDList && mailIDList?.length > 0)) {
+  if (loadingMails) {
     return <ActivityIndicator />;
   }
 
