@@ -1,13 +1,26 @@
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 import GText from '../components/GText.tsx';
 import {privacyPolicy} from '../constants/PrivacyPolicy.js';
+import {terms} from '../constants/Terms.js';
 import {ScrollView} from 'react-native-gesture-handler';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import Plus from '../assets/icons/plus.svg';
 
-const Privacy = () => {
+const TermsAndPrivacy = () => {
+  const route = useRoute();
+  const navigation = useNavigation();
+  const type = route.params?.type ?? 'privacy';
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: type?.toUpperCase(),
+    });
+  }, []);
+
   return (
     <ScrollView contentContainerStyle={styles.scroll}>
-      <GText text={privacyPolicy} size={16} />
+      <GText text={type === 'privacy' ? privacyPolicy : terms} size={16} />
     </ScrollView>
   );
 };
@@ -19,4 +32,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default React.memo(Privacy);
+export default React.memo(TermsAndPrivacy);

@@ -160,7 +160,6 @@ Contact Us
 If you have any questions about this Privacy Policy, You can contact us:
 
 By email: mailmngrteam90tr@gmail.com
-Generated using TermsFeed Privacy Policy Generator
 
 
 `;

@@ -57,10 +57,22 @@ const Login = ({navigation}) => {
         <GoogleSigninButton onPress={signIn} disabled={loading} />
       </View>
       <TouchableOpacity
-        onPress={() => navigation.navigate(ScreenName.PRIVACY)}
+        onPress={() =>
+          navigation.navigate(ScreenName.TERMSANDPRIVACY, {type: 'privacy'})
+        }
         style={styles.privacy}>
         <GText
           text={'Click to read the Privacy Policy.'}
+          style={styles.underline}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate(ScreenName.TERMSANDPRIVACY, {type: 'terms'})
+        }
+        style={styles.privacy}>
+        <GText
+          text={'Click to read the Terms Of Service.'}
           style={styles.underline}
         />
       </TouchableOpacity>

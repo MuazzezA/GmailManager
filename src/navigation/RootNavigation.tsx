@@ -14,6 +14,7 @@ import Detail from '../screens/Detail.tsx';
 import MailList from '../screens/MailList.tsx';
 import Support from '../screens/Support.tsx';
 import Privacy from '../screens/Privacy.tsx';
+import TermsAndPrivacy from '../screens/Privacy.tsx';
 
 const Stack = createStackNavigator<RootStackParamList>();
 export default function RootNavigation() {
@@ -76,12 +77,11 @@ export default function RootNavigation() {
             }}
           />
           <Stack.Screen
-            name={ScreenName.PRIVACY}
-            component={Privacy}
+            name={ScreenName.TERMSANDPRIVACY}
+            component={TermsAndPrivacy}
             options={{
               headerShown: true,
               headerBackTitleVisible: false,
-              headerTitle: 'PRIVACY',
             }}
           />
         </Stack.Group>
