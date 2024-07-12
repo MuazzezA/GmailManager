@@ -58,6 +58,7 @@ const Login = ({navigation}) => {
       </View>
       <View style={styles.privacy}>
         <TouchableOpacity
+          style={styles.textButton}
           onPress={() =>
             navigation.navigate(ScreenName.TERMSANDPRIVACY, {type: 'privacy'})
           }>
@@ -67,6 +68,7 @@ const Login = ({navigation}) => {
           />
         </TouchableOpacity>
         <TouchableOpacity
+          style={styles.textButton}
           onPress={() =>
             navigation.navigate(ScreenName.TERMSANDPRIVACY, {type: 'terms'})
           }>
@@ -120,6 +122,9 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
+  },
+  textButton: {
+    padding: 8,
   },
 });
 export default Login;
