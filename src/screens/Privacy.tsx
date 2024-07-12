@@ -1,11 +1,10 @@
 import React, {useLayoutEffect} from 'react';
 import GText from '../components/GText.tsx';
-import {privacyPolicy} from '../constants/PrivacyPolicy.js';
+import {privacyPolicy} from '../constants/PrivacyPolicy.ts';
 import {terms} from '../constants/Terms.js';
 import {ScrollView} from 'react-native-gesture-handler';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import Plus from '../assets/icons/plus.svg';
 
 const TermsAndPrivacy = () => {
   const route = useRoute();
