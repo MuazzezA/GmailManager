@@ -57,9 +57,11 @@ export const CreateFolderModal = ({
                   />
                   <Button
                     style={styles.doneButton}
-                    onPress={() =>
-                      doneButtonPress({folderName, folderSubject})
-                    }>
+                    onPress={() => {
+                      doneButtonPress({folderName, folderSubject});
+                      setFolderName('');
+                      setFolderSubject('');
+                    }}>
                     DONE
                   </Button>
                 </View>
