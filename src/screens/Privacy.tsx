@@ -1,7 +1,7 @@
 import React, {useLayoutEffect} from 'react';
 import GText from '../components/GText.tsx';
 import {privacyPolicy} from '../constants/PrivacyPolicy.ts';
-import {terms} from '../constants/Terms.js';
+import {terms} from '../constants/Terms.ts';
 import {ScrollView} from 'react-native-gesture-handler';
 import {StyleSheet} from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
