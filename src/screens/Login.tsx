@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import {
+  ActivityIndicator,
   Dimensions,
   Image,
   StyleSheet,
@@ -78,6 +79,11 @@ const Login = ({navigation}) => {
           />
         </TouchableOpacity>
       </View>
+      {loading && (
+        <View style={styles.overlay}>
+          <ActivityIndicator size={'large'} color={colors.background} />
+        </View>
+      )}
     </SafeAreaView>
   );
 };
@@ -125,6 +131,16 @@ const styles = StyleSheet.create({
   },
   textButton: {
     padding: 8,
+  },
+  overlay: {
+    position: 'absolute',
+    backgroundColor: `rgba(0,0,0,0.4)`,
+    top: 0,
+    right: 0,
+    left: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 export default Login;
