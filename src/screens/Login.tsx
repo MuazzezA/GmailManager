@@ -56,14 +56,26 @@ const Login = ({navigation}) => {
       <View style={styles.shadow}>
         <GoogleSigninButton onPress={signIn} disabled={loading} />
       </View>
-      <TouchableOpacity
-        onPress={() => navigation.navigate(ScreenName.PRIVACY)}
-        style={styles.privacy}>
-        <GText
-          text={'Click to read the Privacy Policy.'}
-          style={styles.underline}
-        />
-      </TouchableOpacity>
+      <View style={styles.privacy}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(ScreenName.TERMSANDPRIVACY, {type: 'privacy'})
+          }>
+          <GText
+            text={'Click to read the Privacy Policy.'}
+            style={styles.underline}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(ScreenName.TERMSANDPRIVACY, {type: 'terms'})
+          }>
+          <GText
+            text={'Click to read the Terms Of Service.'}
+            style={styles.underline}
+          />
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -97,6 +109,9 @@ const styles = StyleSheet.create({
   privacy: {
     position: 'absolute',
     bottom: height * 0.1,
+    gap: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   underline: {textDecorationLine: 'underline'},
   info: {

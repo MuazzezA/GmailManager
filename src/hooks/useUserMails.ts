@@ -30,13 +30,11 @@ export const useUserMails = (props: {
           setMails,
           mails,
         });
+        setLoading(false);
       }
     };
 
-    fetchData()
-      .then()
-      .finally(() => setLoading(false));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchData();
   }, [pagination.end, pagination.start, mailIDList, loadingIDList, loading]);
 
   return {mails, pagination, setPagination, loading};

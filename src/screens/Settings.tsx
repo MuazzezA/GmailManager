@@ -16,6 +16,7 @@ import {useNavigation} from '@react-navigation/native';
 import {ScreenName} from '../navigation/ScreenName.ts';
 import {User} from '../types/User.ts';
 import {useAppStore} from '../store/store.ts';
+import UserSVG from '../assets/icons/user.svg';
 
 const Settings = () => {
   const navigation = useNavigation();
@@ -84,11 +85,38 @@ const Settings = () => {
           <GText text={user?.email} size={18} style={styles.text} />
           <GText text={user?.name} size={16} />
         </View>
-        <Image source={{uri: user?.photo}} style={styles.image} />
+        {user?.photo ? (
+          <Image source={{uri: user?.photo}} style={styles.image} />
+        ) : (
+          <View style={styles.noImage}>
+            <UserSVG width={75} height={75} />
+          </View>
+        )}
       </View>
 
       <TouchableOpacity
+        onPress={() => navigation.navigate(ScreenName.SUPPORT)}
         style={styles.button}
+        activeOpacity={0.8}>
+        <GText text={'Contact Us'} size={16} style={styles.text} />
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate(ScreenName.TERMSANDPRIVACY)}
+        style={styles.button}
+        activeOpacity={0.8}>
+        <GText text={'Privacy Policy'} size={16} style={styles.text} />
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate(ScreenName.TERMSANDPRIVACY, {type: 'terms'})
+        }
+        style={styles.button}
+        activeOpacity={0.8}>
+        <GText text={'Terms Of Service'} size={16} style={styles.text} />
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[styles.button, {marginTop: 52}]}
         activeOpacity={0.8}
         onPress={() => deleteAction()}>
         <GText text={'Delete All My Data'} size={16} style={styles.text} />
@@ -103,18 +131,6 @@ const Settings = () => {
           style={styles.text}
           color={'white'}
         />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate(ScreenName.SUPPORT)}
-        style={[styles.button, {marginTop: 52}]}
-        activeOpacity={0.8}>
-        <GText text={'Contact Us'} size={16} style={styles.text} />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate(ScreenName.PRIVACY)}
-        style={styles.button}
-        activeOpacity={0.8}>
-        <GText text={'Privacy Policy'} size={16} style={styles.text} />
       </TouchableOpacity>
     </ScrollView>
   );
@@ -148,5 +164,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   gap: {gap: 4},
+  noImage: {backgroundColor: colors.secondary, borderRadius: 36},
 });
 export default Settings;
