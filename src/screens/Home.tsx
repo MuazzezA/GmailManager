@@ -129,7 +129,7 @@ const Home = () => {
       <FlatList
         contentContainerStyle={styles.flatList}
         showsVerticalScrollIndicator={false}
-        pagingEnabled={true}
+        pagingEnabled={false}
         data={isActiveSearch ? searchResult : mails}
         onEndReached={onEndReachedFlatList}
         renderItem={data => <MailItem item={data.item} index={data.index} />}
