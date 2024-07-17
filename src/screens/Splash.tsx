@@ -6,8 +6,7 @@ import {ScreenName} from '../navigation/ScreenName.ts';
 import {useAuthValidation} from '../hooks/useAuthValidation.ts';
 import mobileAds from 'react-native-google-mobile-ads';
 
-const Splash = () => {
-  const navigation = useNavigation();
+const Splash = ({navigation}) => {
   const {validate, loading} = useAuthValidation();
 
   useEffect(() => {
@@ -18,7 +17,7 @@ const Splash = () => {
           .then(adapterStatuses => {
             console.info('Ads initialization complete!');
           });
-        navigation.navigate(validate ? ScreenName.TABS : ScreenName.LOGIN);
+        navigation.replace(validate ? ScreenName.TABS : ScreenName.LOGIN);
       }
     }, 1000);
 
