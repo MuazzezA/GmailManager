@@ -74,9 +74,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.gmailmanager"
+    namespace "com.devmender.gmailmanager"
     defaultConfig {
-        applicationId "com.gmailmanager"
+        applicationId "com.devmender.gmailmanager"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 4
